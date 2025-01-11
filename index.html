@@ -54,7 +54,6 @@
 			<!-- 自己紹介セクション -->
 			<section id="about" class="about">
 				<h2 class="section-title typewriter-title" data-title="About Me">
-					<!-- タイプライター風エフェクト用にJSで書き換え予定 -->
 					About Me
 				</h2>
 				<div class="about-container">
@@ -143,82 +142,63 @@
 				</div>
 			</section>
 
-			<!-- 作品セクション -->
+			<!-- 作品セクション（一眼で実績一覧表示） -->
 			<section id="works" class="works">
 				<h2 class="section-title typewriter-title" data-title="Works">Works</h2>
-				<div class="carousel-container">
-					<div class="carousel">
-						<!-- 作品例1 -->
-						<div class="carousel-item active">
-							<div class="work-card">
-								<img
-									src="https://via.placeholder.com/600x400"
-									alt="Work1"
-									class="work-image"
-								/>
-								<div class="work-content">
-									<h3>システム開発プロジェクトA</h3>
-									<p>
-										大学のチームプロジェクトで開発したWebシステムです。 Spring
-										BootとVue.jsで構築し、データベースにはMySQLを使用しました。
-									</p>
-									<button class="work-link" data-work="0">詳細を見る</button>
-								</div>
-							</div>
-						</div>
-						<!-- 作品例2 -->
-						<div class="carousel-item">
-							<div class="work-card">
-								<img
-									src="https://via.placeholder.com/600x400"
-									alt="Work2"
-									class="work-image"
-								/>
-								<div class="work-content">
-									<h3>個人制作Webアプリ</h3>
-									<p>
-										JavaScriptを使って作成したタスク管理アプリ。
-										ローカルストレージを利用し、シンプルなUIを実装しています。
-									</p>
-									<button class="work-link" data-work="1">詳細を見る</button>
-								</div>
-							</div>
-						</div>
-						<!-- 作品例3 -->
-						<div class="carousel-item">
-							<div class="work-card">
-								<img
-									src="https://via.placeholder.com/600x400"
-									alt="Work3"
-									class="work-image"
-								/>
-								<div class="work-content">
-									<h3>モバイルアプリ開発</h3>
-									<p>
-										React
-										Nativeを使用して開発したクロスプラットフォーム対応のモバイルアプリです。
-									</p>
-									<button class="work-link" data-work="2">詳細を見る</button>
-								</div>
-							</div>
+				<div class="works-list">
+					<!-- 作品例1 -->
+					<div class="work-card">
+						<img
+							src="https://via.placeholder.com/600x400"
+							alt="Work1"
+							class="work-image"
+						/>
+						<div class="work-content">
+							<h3>システム開発プロジェクトA</h3>
+							<p>
+								大学のチームプロジェクトで開発したWebシステムです。 Spring
+								BootとVue.jsで構築し、データベースにはMySQLを使用しました。
+							</p>
+							<button class="work-link" data-work="0">詳細を見る</button>
 						</div>
 					</div>
-					<!-- カルーセルのナビゲーション -->
-					<button class="carousel-button prev">
-						<i class="fas fa-chevron-left"></i>
-					</button>
-					<button class="carousel-button next">
-						<i class="fas fa-chevron-right"></i>
-					</button>
-					<div class="carousel-indicators">
-						<span class="indicator active" data-index="0"></span>
-						<span class="indicator" data-index="1"></span>
-						<span class="indicator" data-index="2"></span>
+					<!-- 作品例2 -->
+					<div class="work-card">
+						<img
+							src="https://via.placeholder.com/600x400"
+							alt="Work2"
+							class="work-image"
+						/>
+						<div class="work-content">
+							<h3>個人制作Webアプリ</h3>
+							<p>
+								JavaScriptを使って作成したタスク管理アプリ。
+								ローカルストレージを利用し、シンプルなUIを実装しています。
+							</p>
+							<button class="work-link" data-work="1">詳細を見る</button>
+						</div>
 					</div>
+					<!-- 作品例3 -->
+					<div class="work-card">
+						<img
+							src="https://via.placeholder.com/600x400"
+							alt="Work3"
+							class="work-image"
+						/>
+						<div class="work-content">
+							<h3>モバイルアプリ開発</h3>
+							<p>
+								React
+								Nativeを使用して開発したクロスプラットフォーム対応のモバイルアプリです。
+							</p>
+							<button class="work-link" data-work="2">詳細を見る</button>
+						</div>
+					</div>
+					<!-- 必要に応じて作品を追加 -->
 				</div>
 			</section>
 
-			<!-- モーダルセクション -->
+			<!-- モーダルセクション（Works詳細） -->
 			<div class="modal" id="work-modal">
 				<div class="modal-content">
 					<span class="close-button">&times;</span>
@@ -263,7 +243,7 @@
 							</div>
 						</div>
 					</div>
-					<!-- モーダル内のナビゲーション -->
+					<!-- モーダル内ナビゲーションボタンのhover演出をやや小さく調整 -->
 					<button class="modal-carousel-button prev">
 						<i class="fas fa-chevron-left"></i>
 					</button>
@@ -320,7 +300,6 @@
 					</form>
 
 					<div class="direct-contact">
-						<!-- 背景を抑えめに、モノトーンでプログラム風イメージに変更 -->
 						<h3>お問い合わせ</h3>
 						<p>
 							ご質問やご相談などがございましたら、<br />
@@ -338,6 +317,7 @@
 				<p>&copy; 2025 山田太郎</p>
 			</footer>
 		</div>
+
 		<script src="script.js"></script>
 	</body>
 </html>

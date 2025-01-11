@@ -1,6 +1,6 @@
 /*************************************************************
  * style.css
- * ポートフォリオサイト用のメインスタイルシート
+ * ポートフォリオサイト用のメインスタイルシート(修正版)
  * 
  * 主な構成:
  *    1. リセット & 全体設定
@@ -9,8 +9,8 @@
  *    4. ヘッダー & ナビゲーション
  *    5. ヒーローセクション
  *    6. セクション共通デザイン
- *    7. About, Career, Skills, Works, Qualifications, Contact
- *    8. カルーセル & モーダル
+ *    7. 各セクション(About, Career, Skills, Works, Qualifications, Contact)
+ *    8. モーダル (Works詳細)
  *    9. レスポンシブ対応
  *************************************************************/
 
@@ -23,7 +23,6 @@
 	box-sizing: border-box;
 }
 
-/* HTML要素のデフォルト設定を最小限に */
 html,
 body {
 	width: 100%;
@@ -43,12 +42,12 @@ body {
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background-color: #1e1e1e; /* プログラムエディタ風の背景色 */
+	/* 背景を黒に近い色へ変更し、アニメと被らないように */
+	background-color: #000;
 	z-index: 9999;
 	overflow: hidden;
 }
 
-/* タイプライター文字表示部分 */
 .text-container {
 	position: absolute;
 	top: 50%;
@@ -58,7 +57,6 @@ body {
 	color: #d4d4d4;
 }
 
-/* カーソル点滅 */
 .cursor {
 	display: inline-block;
 	width: 5px;
@@ -66,6 +64,12 @@ body {
 	margin-left: 5px;
 	background-color: #d4d4d4;
 	animation: blink 1.2s infinite;
+}
+
+@keyframes blink {
+	50% {
+		opacity: 0;
+	}
 }
 
 /* ブロックアニメーション用グリッド */
@@ -76,26 +80,18 @@ body {
 	width: 100%;
 	height: 100%;
 	display: grid;
-	/* script.js で 15×20 のdivを生成  */
 }
 
-/* 初期状態のブロックデザイン */
+/* 初期状態: 黒いブロック */
 .grid-item {
-	background-color: #1e1e1e;
+	background-color: #000;
 	transition: transform 0.5s ease, opacity 0.5s ease;
 }
 
-/* ブロックを上方向にフェードアウト */
+/* ブロックを上方に流す */
 .grid-item.animate {
 	transform: translateY(-100%);
 	opacity: 0;
-}
-
-/* カーソル点滅アニメーション */
-@keyframes blink {
-	50% {
-		opacity: 0;
-	}
 }
 
 /*-----------------------------------------------------------
@@ -105,8 +101,8 @@ body {
 	position: relative;
 	width: 100%;
 	min-height: 100vh;
-	background-color: #1e1e1e; /* モノトーンでプログラム風 */
-	opacity: 1; /* 最初は script.js 側で 0 → 1に変更している */
+	background-color: #1e1e1e;
+	opacity: 1; /* script.js 側で 0 → 1 にする */
 	transition: opacity 1s ease;
 }
 
@@ -119,7 +115,7 @@ body {
 	left: 0;
 	width: 100%;
 	z-index: 5000;
-	background-color: #2d2d2d; /* ヘッダーのベース色(濃いグレー) */
+	background-color: #2d2d2d;
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
@@ -143,9 +139,8 @@ body {
 	transition: color 0.3s ease;
 }
 
-/* ナビゲーションリンクホバー時 */
 .nav ul li a:hover {
-	color: #569cd6; /* VSCode風の青色 */
+	color: #569cd6;
 }
 
 /*-----------------------------------------------------------
@@ -154,7 +149,7 @@ body {
 .hero {
 	width: 100%;
 	height: 100vh;
-	margin-top: 60px; /* ヘッダーの高さ分マージン */
+	margin-top: 60px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -171,13 +166,12 @@ body {
 	width: 100%;
 	height: 100%;
 	background-color: rgba(88, 88, 88, 0.5);
-	/* 少しグレーの半透明でオーバーレイ */
 }
 
 .hero-content {
 	position: relative;
 	text-align: center;
-	z-index: 1; /* オーバーレイより前面 */
+	z-index: 1;
 }
 
 .hero-title {
@@ -211,36 +205,34 @@ body {
 /*-----------------------------------------------------------
 	6. セクション共通デザイン
   -----------------------------------------------------------*/
-/* セクションタイトル */
 .section-title {
 	text-align: center;
 	font-size: 2rem;
 	margin: 60px 0 40px 0;
 	color: #d4d4d4;
-	opacity: 0; /* フェードイン前は非表示 */
+	opacity: 0;
 	transform: translateY(30px);
 	transition: opacity 1s ease, transform 1s ease;
 }
 
-/* .visible が付与されたらフェードイン */
 .section-title.visible {
 	opacity: 1;
 	transform: translateY(0);
 }
 
-/* フェードイン用クラス */
+/* フェードインアニメ */
 .visible {
 	opacity: 1 !important;
 	transform: none !important;
 }
 
 /*-----------------------------------------------------------
-	7. About, Career, Skills, Works, Qualifications, Contact
+	7. 各セクション(About, Career, Skills, Works, Qualifications, Contact)
   -----------------------------------------------------------*/
 /* Aboutセクション */
 .about {
 	padding: 60px 20px;
-	background-color: #252526; /* Visual Studio Codeのやや暗め背景 */
+	background-color: #252526;
 }
 
 .about-container {
@@ -265,7 +257,7 @@ body {
 	border-radius: 10px;
 }
 
-/* SNSリンク (= social-links) */
+/* SNSリンク */
 .social-links {
 	margin-top: 20px;
 }
@@ -276,7 +268,7 @@ body {
 	transition: color 0.3s ease, transform 0.3s ease;
 }
 .social-links a:hover {
-	color: #c586c0; /* 紫系 */
+	color: #c586c0;
 	transform: translateY(-3px);
 }
 
@@ -303,7 +295,7 @@ body {
 	background-color: #2d2d2d;
 	padding: 20px;
 	margin-bottom: 20px;
-	border-left: 5px solid #569cd6; /* VSCode風の青 */
+	border-left: 5px solid #569cd6;
 	transition: transform 0.3s ease;
 }
 .career-item:hover {
@@ -352,7 +344,7 @@ body {
 .skill-category h3 {
 	margin-bottom: 10px;
 	font-size: 1.2rem;
-	color: #4ec9b0; /* 緑/シアン系 */
+	color: #4ec9b0;
 }
 .skill-category ul {
 	list-style: none;
@@ -366,52 +358,53 @@ body {
 	content: "●";
 	position: absolute;
 	left: 0;
-	color: #ce9178; /* 赤っぽいオレンジ */
+	color: #ce9178;
 }
 
-/* Worksセクション */
+/* Worksセクション (一眼でカード表示) */
 .works {
 	padding: 60px 20px;
 	background-color: #1e1e1e;
 }
 
-.carousel-container {
+.works-list {
 	max-width: 1200px;
 	margin: 0 auto;
-	position: relative;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+	gap: 20px;
+	opacity: 0;
+	transform: translateY(30px);
+	transition: opacity 1s ease, transform 1s ease;
+}
+.works-list.visible {
+	opacity: 1;
+	transform: translateY(0);
 }
 
-.carousel {
-	display: flex;
-	overflow: hidden;
-	position: relative;
-}
-.carousel-item {
-	min-width: 100%;
-	opacity: 0;
-	transform: scale(0.95);
-	transition: opacity 0.5s ease, transform 0.5s ease;
-}
-.carousel-item.active {
-	opacity: 1;
-	transform: scale(1);
-}
 .work-card {
 	background-color: #2d2d2d;
 	border-radius: 10px;
 	overflow: hidden;
 	display: flex;
 	flex-direction: column;
+	transition: transform 0.3s ease;
 }
+.work-card:hover {
+	transform: translateY(-3px);
+}
+
 .work-image {
 	width: 100%;
-	height: 250px;
+	height: 200px;
 	object-fit: cover;
 	transition: transform 0.5s ease;
 }
+
 .work-card:hover .work-image {
 	transform: scale(1.03);
 }
+
 .work-content {
 	padding: 20px;
 	flex: 1;
@@ -442,178 +435,6 @@ body {
 	color: #569cd6;
 }
 
-/* カルーセル・ナビゲーション */
-.carousel-button {
-	position: absolute;
-	top: 50%;
-	transform: translateY(-50%);
-	background-color: rgba(128, 128, 128, 0.3);
-	border: none;
-	padding: 10px;
-	border-radius: 50%;
-	cursor: pointer;
-	z-index: 10;
-	transition: background 0.3s ease, transform 0.3s ease;
-}
-.carousel-button:hover {
-	background-color: rgba(128, 128, 128, 0.6);
-	transform: scale(1.1);
-}
-.carousel-button.prev {
-	left: 10px;
-}
-.carousel-button.next {
-	right: 10px;
-}
-.carousel-indicators {
-	position: absolute;
-	bottom: 10px;
-	left: 50%;
-	transform: translateX(-50%);
-	display: flex;
-	gap: 10px;
-}
-.indicator {
-	width: 12px;
-	height: 12px;
-	background-color: #777;
-	border-radius: 50%;
-	cursor: pointer;
-	transition: background-color 0.3s ease;
-}
-.indicator.active {
-	background-color: #9cdcfe;
-}
-
-/* モーダル (Works 詳細) */
-.modal {
-	display: none; /* 初期非表示 */
-	position: fixed;
-	z-index: 10000;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	overflow: auto;
-	background-color: rgba(0, 0, 0, 0.8);
-	animation: fadeInModal 0.5s;
-}
-.modal-content {
-	background-color: #2d2d2d;
-	color: #d4d4d4;
-	margin: 5% auto;
-	padding: 20px;
-	border-radius: 10px;
-	width: 90%;
-	max-width: 900px;
-	position: relative;
-	animation: slideDown 0.5s;
-}
-.close-button {
-	position: absolute;
-	top: 15px;
-	right: 25px;
-	font-size: 2rem;
-	color: #aaa;
-	cursor: pointer;
-	transition: color 0.3s ease;
-}
-.close-button:hover {
-	color: #fff;
-}
-.modal-carousel {
-	display: flex;
-	overflow: hidden;
-	position: relative;
-}
-.modal-carousel-item {
-	min-width: 100%;
-	transition: opacity 0.5s ease, transform 0.5s ease;
-	opacity: 0;
-	transform: scale(0.95);
-}
-.modal-carousel-item.active {
-	opacity: 1;
-	transform: scale(1);
-}
-.modal-image {
-	width: 100%;
-	height: 400px;
-	object-fit: cover;
-	border-radius: 5px;
-}
-.modal-text {
-	margin-top: 20px;
-}
-.modal-text h3 {
-	color: #4ec9b0; /* 緑系 */
-	margin-bottom: 10px;
-}
-.modal-text p {
-	line-height: 1.6;
-}
-.modal-carousel-button {
-	position: absolute;
-	top: 50%;
-	transform: translateY(-50%);
-	background-color: rgba(128, 128, 128, 0.3);
-	border: none;
-	padding: 10px;
-	border-radius: 50%;
-	cursor: pointer;
-	z-index: 11;
-	transition: background 0.3s, transform 0.3s;
-}
-.modal-carousel-button:hover {
-	background-color: rgba(128, 128, 128, 0.5);
-	transform: scale(1.1);
-}
-.modal-carousel-button.prev {
-	left: 10px;
-}
-.modal-carousel-button.next {
-	right: 10px;
-}
-.modal-carousel-indicators {
-	display: flex;
-	gap: 10px;
-	position: absolute;
-	bottom: 10px;
-	left: 50%;
-	transform: translateX(-50%);
-}
-.modal-indicator {
-	width: 12px;
-	height: 12px;
-	background-color: #777;
-	border-radius: 50%;
-	cursor: pointer;
-	transition: background-color 0.3s ease;
-}
-.modal-indicator.active {
-	background-color: #9cdcfe;
-}
-
-/* モーダルアニメーション */
-@keyframes fadeInModal {
-	from {
-		opacity: 0;
-	}
-	to {
-		opacity: 1;
-	}
-}
-@keyframes slideDown {
-	from {
-		transform: translateY(-30px);
-		opacity: 0;
-	}
-	to {
-		transform: translateY(0);
-		opacity: 1;
-	}
-}
-
 /* 資格セクション */
 .qualifications {
 	padding: 60px 20px;
@@ -636,7 +457,7 @@ body {
 	background-color: #2d2d2d;
 	padding: 15px 20px;
 	margin-bottom: 10px;
-	border-left: 5px solid #ce9178; /* 赤系 */
+	border-left: 5px solid #ce9178;
 	transition: transform 0.3s ease;
 }
 .qualifications li:hover {
@@ -703,10 +524,7 @@ body {
 	transform: translateY(-3px);
 }
 
-/* 
-	 “直接メールでお問い合わせいただく場合はこちら”部分を
-	 抑えめなモノトーンデザインに変更
-  */
+/* 直接メールの背景を抑えめ */
 .direct-contact {
 	flex: 1;
 	background-color: #252526;
@@ -717,7 +535,7 @@ body {
 .direct-contact h3 {
 	font-size: 1.4rem;
 	margin-bottom: 15px;
-	color: #c586c0; /* 紫 */
+	color: #c586c0;
 }
 .direct-contact p {
 	font-size: 1rem;
@@ -748,6 +566,146 @@ body {
 }
 
 /*-----------------------------------------------------------
+	8. モーダル (Works詳細)
+  -----------------------------------------------------------*/
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 10000;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.8);
+	animation: fadeInModal 0.5s;
+}
+
+.modal-content {
+	background-color: #2d2d2d;
+	color: #d4d4d4;
+	margin: 5% auto;
+	padding: 20px;
+	border-radius: 10px;
+	width: 90%;
+	max-width: 900px;
+	position: relative;
+	animation: slideDown 0.5s;
+}
+
+.close-button {
+	position: absolute;
+	top: 15px;
+	right: 25px;
+	font-size: 2rem;
+	color: #aaa;
+	cursor: pointer;
+	transition: color 0.3s ease;
+}
+.close-button:hover {
+	color: #fff;
+}
+
+/* モーダル内カルーセル */
+.modal-carousel {
+	display: flex;
+	overflow: hidden;
+	position: relative;
+}
+.modal-carousel-item {
+	min-width: 100%;
+	transition: opacity 0.5s ease, transform 0.5s ease;
+	opacity: 0;
+	transform: scale(0.95);
+}
+.modal-carousel-item.active {
+	opacity: 1;
+	transform: scale(1);
+}
+.modal-image {
+	width: 100%;
+	height: 400px;
+	object-fit: cover;
+	border-radius: 5px;
+}
+.modal-text {
+	margin-top: 20px;
+}
+.modal-text h3 {
+	color: #4ec9b0;
+	margin-bottom: 10px;
+}
+.modal-text p {
+	line-height: 1.6;
+}
+
+/* モーダル内部の「<>」 ボタン */
+.modal-carousel-button {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	background-color: rgba(128, 128, 128, 0.3);
+	border: none;
+	padding: 10px;
+	border-radius: 50%;
+	cursor: pointer;
+	z-index: 11;
+	transition: background 0.3s, transform 0.3s;
+}
+.modal-carousel-button:hover {
+	background-color: rgba(128, 128, 128, 0.5);
+	/* transformスケールをほんの少しだけにして押しやすく */
+	transform: translateY(-50%) scale(1.05);
+}
+.modal-carousel-button.prev {
+	left: 10px;
+}
+.modal-carousel-button.next {
+	right: 10px;
+}
+
+/* モーダルインジケーター */
+.modal-carousel-indicators {
+	display: flex;
+	gap: 10px;
+	position: absolute;
+	bottom: 10px;
+	left: 50%;
+	transform: translateX(-50%);
+}
+.modal-indicator {
+	width: 12px;
+	height: 12px;
+	background-color: #777;
+	border-radius: 50%;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+.modal-indicator.active {
+	background-color: #9cdcfe;
+}
+
+/* モーダルアニメーション */
+@keyframes fadeInModal {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+@keyframes slideDown {
+	from {
+		transform: translateY(-30px);
+		opacity: 0;
+	}
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+/*-----------------------------------------------------------
 	9. レスポンシブ対応
   -----------------------------------------------------------*/
 @media (max-width: 768px) {
@@ -755,35 +713,31 @@ body {
 		flex-direction: column;
 		align-items: center;
 	}
-
 	.about-container,
 	.skill-list,
+	.works-list,
 	.contact-container {
 		flex-direction: column;
 		align-items: center;
 	}
-
 	.hero-title {
 		font-size: 2.2rem;
 	}
-
 	.hero-subtitle {
 		font-size: 1.2rem;
 	}
-
-	.carousel-button.prev,
-	.carousel-button.next,
-	.modal-carousel-button.prev,
-	.modal-carousel-button.next {
-		top: 85%;
-		transform: translateY(-50%) rotate(90deg);
-	}
-
 	.modal-image {
 		height: 250px;
 	}
-
+	.closing-container {
+		margin-top: 20px;
+	}
 	.contact-container {
 		flex-direction: column;
+	}
+	.modal-carousel-button.prev,
+	.modal-carousel-button.next {
+		top: 85%;
+		transform: translateY(-50%) rotate(90deg); /* レスポンシブで位置ずれ調整 */
 	}
 }
