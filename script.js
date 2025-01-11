@@ -76,40 +76,6 @@ function fadeInOnScroll() {
 	});
 }
 
-// ナビゲーションリンクのスムーズスクロール
-document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-	anchor.addEventListener("click", function (e) {
-		e.preventDefault();
-		const target = document.querySelector(this.getAttribute("href"));
-		const headerHeight = document.querySelector(".header").offsetHeight;
-		const targetPosition =
-			target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-
-		window.scrollTo({
-			top: targetPosition,
-			behavior: "smooth",
-		});
-	});
-});
-
-// 「私について」ボタンのスライドアニメーション
-const heroButton = document.querySelector(".hero-button");
-heroButton.addEventListener("click", function (e) {
-	e.preventDefault();
-	const targetId = this.getAttribute("href");
-	const target = document.querySelector(targetId);
-	const headerHeight = document.querySelector(".header").offsetHeight;
-	const targetPosition =
-		target.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-
-	this.classList.add("sliding");
-
-	window.scrollTo({
-		top: targetPosition,
-		behavior: "smooth",
-	});
-});
-
 // ■■■ Worksカルーセル ■■■
 const carousel = document.querySelector(".carousel");
 const carouselItems = document.querySelectorAll(".carousel-item");
