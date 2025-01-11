@@ -1,82 +1,143 @@
-// ■■■ オープニングアニメーション ■■■
+/******************************************************
+ * script.js
+ * ポートフォリオサイト用の JavaScript メインファイル
+ *
+ * 【主な機能】
+ * 1. オープニングアニメーション（タイプライター＆ブロックアニメ）
+ * 2. セクションタイトルへのタイプライター演出
+ * 3. フェードインアニメーション（スクロール連動）
+ * 4. ナビゲーションリンク＆「私について」ボタンスムーズスクロール
+ * 5. Worksセクションのカルーセル
+ * 6. モーダル表示＆モーダル内カルーセル
+ * 7. Contactフォームでの簡易バリデーション＆送信動作
+ ******************************************************/
+
+//------------------------------------------------------
+// 1. オープニングアニメーション
+//------------------------------------------------------
 document.addEventListener("DOMContentLoaded", () => {
-	const text = "Welcome to My Portfolio";
-	const typedTextElement = document.getElementById("typed-text");
+	const openingText = document.getElementById("opening-text");
 	const gridContainer = document.getElementById("grid");
 	const openingContainer = document.getElementById("opening-container");
 	const mainContent = document.getElementById("main-content");
 
-	let currentIndex = 0;
+	// オープニングで表示するテキスト
+	const text = "Welcome to My Portfolio...";
+	let index = 0;
 
-	// グリッドアイテムを作成
-	for (let row = 0; row < 15; row++) {
-		for (let col = 0; col < 20; col++) {
-			const gridItem = document.createElement("div");
-			gridItem.className = "grid-item";
-			gridItem.dataset.row = row;
-			gridItem.dataset.col = col;
-			gridContainer.appendChild(gridItem);
+	// グリッドブロックの行・列数
+	const rows = 15;
+	const cols = 20;
+
+	// -----------------------------------
+	// グリッドブロックを生成
+	// -----------------------------------
+	for (let r = 0; r < rows; r++) {
+		for (let c = 0; c < cols; c++) {
+			const block = document.createElement("div");
+			block.className = "grid-item";
+			gridContainer.appendChild(block);
 		}
 	}
 
-	// タイプライターエフェクト
-	function typeText() {
-		if (currentIndex < text.length) {
-			typedTextElement.textContent += text[currentIndex];
-			currentIndex++;
-			setTimeout(typeText, 100);
+	// -----------------------------------
+	// タイプライター演出
+	// -----------------------------------
+	function typeWriter() {
+		if (index < text.length) {
+			openingText.textContent += text[index];
+			index++;
+			setTimeout(typeWriter, 100); // 適度な速度で1文字ずつ表示
 		} else {
-			// 文字表示が終わったらブロックアニメーションを開始
-			setTimeout(startGridAnimation, 1000);
+			// テキスト書き終え後、ブロックアニメーションへ
+			setTimeout(startBlockAnimation, 800);
 		}
 	}
 
-	// グリッド（ブロック）アニメーション
-	function startGridAnimation() {
-		const items = document.querySelectorAll(".grid-item");
-		items.forEach((item) => {
-			const row = parseInt(item.dataset.row);
-			const col = parseInt(item.dataset.col);
-			// 上から下(行数の大きいほうを遅らせる) + 横(列)を組み合わせる
-			// 例: (15 - row + col) * 50
-			const delay = (15 - row + col) * 50;
-
+	// -----------------------------------
+	// ブロック(グリッド)アニメーション
+	// -----------------------------------
+	function startBlockAnimation() {
+		const blocks = document.querySelectorAll(".grid-item");
+		blocks.forEach((block, i) => {
+			// 適度なディレイを付けながらクラスを付与
 			setTimeout(() => {
-				item.classList.add("animate");
-			}, delay);
+				block.classList.add("animate");
+			}, i * 40);
 		});
 
-		// ブロックアニメーションが完了した後でオープニング画面を消してメイン表示
-		// 最大の遅延を考慮して少し余裕をみる(15 + 19) * 50 = 1700 ぐらい + α
+		// アニメーション終了後にメインページを表示
 		setTimeout(() => {
 			openingContainer.style.display = "none";
-			mainContent.style.display = "block";
-		}, 3000);
+			mainContent.style.opacity = 1; // フェードイン
+		}, 2500);
 	}
 
-	// アニメーション開始
-	setTimeout(typeText, 500);
+	// まずタイプライターアニメーション開始
+	typeWriter();
 });
 
-// ■■■ メインページ スクロールでフェードイン ■■■
-window.addEventListener("scroll", fadeInOnScroll);
-window.addEventListener("DOMContentLoaded", fadeInOnScroll);
+//------------------------------------------------------
+// 2. セクションタイトルへのタイプライター演出
+//------------------------------------------------------
+function applyTypewriterToHeadings() {
+	const headings = document.querySelectorAll(".typewriter-title");
+	headings.forEach((heading) => {
+		const originalText = heading.getAttribute("data-title");
+		heading.textContent = "";
+		let charIndex = 0;
 
+		// 文字を徐々に表示していく再帰関数
+		function typeChar() {
+			if (charIndex < originalText.length) {
+				heading.textContent += originalText[charIndex];
+				charIndex++;
+				setTimeout(typeChar, 80);
+			}
+		}
+		typeChar();
+	});
+}
+
+// DOMが読み込まれたらタイトルへのタイプライターを適用
+window.addEventListener("DOMContentLoaded", applyTypewriterToHeadings);
+
+//------------------------------------------------------
+// 3. フェードインアニメーション（スクロール連動）
+//------------------------------------------------------
 function fadeInOnScroll() {
-	const fadeInTargets = document.querySelectorAll(
-		".section-title, .about-container, .career-container, .skill-list, .carousel-item, .qualifications ul, .contact-form"
+	const fadeTargets = document.querySelectorAll(
+		".section-title," + // 見出し
+			".about-container," +
+			".career-container," +
+			".skill-list," +
+			".carousel-item," +
+			".qualifications ul," +
+			".contact-form"
 	);
 	const windowHeight = window.innerHeight;
-	fadeInTargets.forEach((target) => {
+	const offset = 100; // 画面下からの余裕
+
+	fadeTargets.forEach((target) => {
 		const rect = target.getBoundingClientRect();
-		const offset = 100;
 		if (rect.top < windowHeight - offset) {
 			target.classList.add("visible");
 		}
 	});
 }
 
-// ■■■ Worksカルーセル ■■■
+window.addEventListener("DOMContentLoaded", fadeInOnScroll);
+window.addEventListener("scroll", fadeInOnScroll);
+
+//------------------------------------------------------
+// 4. ナビゲーションリンク＆「私について」ボタンのスムーズスクロール
+//------------------------------------------------------
+//  ここではCSS側 (scroll-behavior: smooth;) を利用。
+//  追加で制御が必要な場合、この辺りに記述してもOK。
+
+//------------------------------------------------------
+// 5. Worksセクションのカルーセル
+//------------------------------------------------------
 const carousel = document.querySelector(".carousel");
 const carouselItems = document.querySelectorAll(".carousel-item");
 const prevButton = document.querySelector(".carousel-button.prev");
@@ -84,7 +145,9 @@ const nextButton = document.querySelector(".carousel-button.next");
 const indicators = document.querySelectorAll(".indicator");
 let currentIndex = 0;
 const totalItems = carouselItems.length;
+let autoSlideTimer;
 
+// カルーセルの初期表示
 function goToSlide(index) {
 	carouselItems.forEach((item, i) => {
 		item.classList.toggle("active", i === index);
@@ -95,83 +158,108 @@ function goToSlide(index) {
 	currentIndex = index;
 }
 
-nextButton.addEventListener("click", () => {
-	let index = currentIndex + 1;
-	if (index >= totalItems) index = 0;
-	goToSlide(index);
-	resetAutoSlide();
-});
+// 次のスライド
+function showNextSlide() {
+	let newIndex = currentIndex + 1;
+	if (newIndex >= totalItems) newIndex = 0;
+	goToSlide(newIndex);
+}
 
-prevButton.addEventListener("click", () => {
-	let index = currentIndex - 1;
-	if (index < 0) index = totalItems - 1;
-	goToSlide(index);
-	resetAutoSlide();
-});
+// 前のスライド
+function showPrevSlide() {
+	let newIndex = currentIndex - 1;
+	if (newIndex < 0) newIndex = totalItems - 1;
+	goToSlide(newIndex);
+}
 
-indicators.forEach((indicator, index) => {
+// 自動スライド
+function startAutoSlide() {
+	autoSlideTimer = setInterval(showNextSlide, 5000);
+}
+function stopAutoSlide() {
+	clearInterval(autoSlideTimer);
+}
+
+// ナビゲーションボタン
+if (prevButton && nextButton) {
+	prevButton.addEventListener("click", () => {
+		showPrevSlide();
+		stopAutoSlide();
+		startAutoSlide();
+	});
+	nextButton.addEventListener("click", () => {
+		showNextSlide();
+		stopAutoSlide();
+		startAutoSlide();
+	});
+}
+
+// インジケーター
+indicators.forEach((indicator, i) => {
 	indicator.addEventListener("click", () => {
-		goToSlide(index);
-		resetAutoSlide();
+		goToSlide(i);
+		stopAutoSlide();
+		startAutoSlide();
 	});
 });
 
-let autoSlide = setInterval(() => {
-	let index = currentIndex + 1;
-	if (index >= totalItems) index = 0;
-	goToSlide(index);
-}, 5000);
+// 初期化
+goToSlide(currentIndex);
+startAutoSlide();
 
-function resetAutoSlide() {
-	clearInterval(autoSlide);
-	autoSlide = setInterval(() => {
-		let index = currentIndex + 1;
-		if (index >= totalItems) index = 0;
-		goToSlide(index);
-	}, 5000);
-}
-
-// ■■■ Worksモーダル ■■■
+//------------------------------------------------------
+// 6. モーダル表示 & モーダル内カルーセル
+//------------------------------------------------------
 const modal = document.getElementById("work-modal");
-const closeButton = modal.querySelector(".close-button");
+const closeButton = modal?.querySelector(".close-button");
 const workLinks = document.querySelectorAll(".work-link");
+
 workLinks.forEach((link) => {
 	link.addEventListener("click", () => {
-		const workIndex = parseInt(link.getAttribute("data-work"));
+		// data-work属性から何番目の作品か取得
+		const workIndex = parseInt(link.dataset.work, 10);
 		openModal(workIndex);
 	});
 });
 
+// モーダルを開く
 function openModal(index) {
 	modal.style.display = "block";
 	showModalSlide(index);
-	resetModalAutoSlide();
+	stopModalAutoSlide();
+	startModalAutoSlide();
 }
 
-closeButton.addEventListener("click", closeModal);
-
+// モーダルを閉じる
 function closeModal() {
 	modal.style.display = "none";
-	clearModalAutoSlide();
+	stopModalAutoSlide();
 }
 
+if (closeButton) {
+	closeButton.addEventListener("click", closeModal);
+}
+
+// モーダル外クリックで閉じる
 window.addEventListener("click", (e) => {
 	if (e.target === modal) {
 		closeModal();
 	}
 });
 
-// ■■■ モーダル内カルーセル ■■■
-const modalCarousel = modal.querySelector(".modal-carousel");
-const modalCarouselItems = modal.querySelectorAll(".modal-carousel-item");
-const modalPrevButton = modal.querySelector(".modal-carousel-button.prev");
-const modalNextButton = modal.querySelector(".modal-carousel-button.next");
-const modalIndicators = modal.querySelectorAll(".modal-indicator");
+// モーダル内カルーセル
+const modalCarousel = modal?.querySelector(".modal-carousel");
+const modalCarouselItems = modal?.querySelectorAll(".modal-carousel-item");
+const modalPrevBtn = modal?.querySelector(".modal-carousel-button.prev");
+const modalNextBtn = modal?.querySelector(".modal-carousel-button.next");
+const modalIndicators = modal?.querySelectorAll(".modal-indicator");
 let modalCurrentIndex = 0;
-const modalTotalItems = modalCarouselItems.length;
-let modalAutoSlide;
+let modalAutoSlideTimer;
+const modalTotal = modalCarouselItems ? modalCarouselItems.length : 0;
 
+// 指定のスライドを表示
 function showModalSlide(index) {
+	if (!modalCarouselItems || !modalIndicators) return;
 	modalCarouselItems.forEach((item, i) => {
 		item.classList.toggle("active", i === index);
 	});
@@ -181,52 +269,71 @@ function showModalSlide(index) {
 	modalCurrentIndex = index;
 }
 
-modalPrevButton.addEventListener("click", () => {
-	let index = modalCurrentIndex - 1;
-	if (index < 0) index = modalTotalItems - 1;
-	showModalSlide(index);
-	resetModalAutoSlide();
-});
+// 次へ
+function showModalNext() {
+	let newIndex = modalCurrentIndex + 1;
+	if (newIndex >= modalTotal) newIndex = 0;
+	showModalSlide(newIndex);
+}
 
-modalNextButton.addEventListener("click", () => {
-	let index = modalCurrentIndex + 1;
-	if (index >= modalTotalItems) index = 0;
-	showModalSlide(index);
-	resetModalAutoSlide();
-});
+// 前へ
+function showModalPrev() {
+	let newIndex = modalCurrentIndex - 1;
+	if (newIndex < 0) newIndex = modalTotal - 1;
+	showModalSlide(newIndex);
+}
 
-modalIndicators.forEach((indicator, i) => {
+// 自動再生
+function startModalAutoSlide() {
+	modalAutoSlideTimer = setInterval(showModalNext, 5000);
+}
+function stopModalAutoSlide() {
+	clearInterval(modalAutoSlideTimer);
+}
+
+// イベントリスナー（モーダル内ナビゲーションボタン）
+if (modalPrevBtn && modalNextBtn) {
+	modalPrevBtn.addEventListener("click", () => {
+		showModalPrev();
+		stopModalAutoSlide();
+		startModalAutoSlide();
+	});
+	modalNextBtn.addEventListener("click", () => {
+		showModalNext();
+		stopModalAutoSlide();
+		startModalAutoSlide();
+	});
+}
+
+// インジケーター
+modalIndicators?.forEach((indicator, i) => {
 	indicator.addEventListener("click", () => {
 		showModalSlide(i);
-		resetModalAutoSlide();
+		stopModalAutoSlide();
+		startModalAutoSlide();
 	});
 });
 
-function resetModalAutoSlide() {
-	clearModalAutoSlide();
-	modalAutoSlide = setInterval(() => {
-		let index = modalCurrentIndex + 1;
-		if (index >= modalTotalItems) index = 0;
-		showModalSlide(index);
-	}, 5000);
-}
-
-function clearModalAutoSlide() {
-	clearInterval(modalAutoSlide);
-}
-
-// ■■■ Contactフォーム送信処理 サンプル ■■■
+//------------------------------------------------------
+// 7. Contactフォーム送信処理（簡易バリデーション＆送信）
+//------------------------------------------------------
 const contactForm = document.getElementById("contact-form");
-contactForm.addEventListener("submit", (e) => {
-	e.preventDefault();
-	const nameValue = document.getElementById("name").value.trim();
-	const emailValue = document.getElementById("email").value.trim();
-	const messageValue = document.getElementById("message").value.trim();
+if (contactForm) {
+	contactForm.addEventListener("submit", (e) => {
+		e.preventDefault();
+		const nameValue = document.getElementById("name").value.trim();
+		const emailValue = document.getElementById("email").value.trim();
+		const messageValue = document.getElementById("message").value.trim();
 
-	if (!nameValue || !emailValue || !messageValue) {
-		alert("全てのフィールドを入力してください");
-		return;
-	}
-	alert(`ありがとうございます、${nameValue}さん！メッセージを受け取りました。`);
-	contactForm.reset();
-});
+		// 簡易バリデーション
+		if (!nameValue || !emailValue || !messageValue) {
+			alert("全てのフィールドを入力してください。");
+			return;
+		}
+		// 実際の送信処理はバックエンドが必要
+		alert(
+			`ありがとうございます、${nameValue}さん！メッセージを受け取りました。`
+		);
+		contactForm.reset();
+	});
+}

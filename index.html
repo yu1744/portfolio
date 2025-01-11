@@ -5,11 +5,10 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>山田太郎のポートフォリオ</title>
 		<link rel="stylesheet" href="style.css" />
-		<!-- Font Awesome CDN -->
+		<!-- Font Awesome CDN (アイコン使用のため) -->
 		<link
 			rel="stylesheet"
 			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-			integrity="sha512-pGA2wq8F9HtQksImq/3yMimbalYwY8XnDO2s+EC+sHMTcSQE7d4es5C9kUcZIop/3MOzZzJo1i8ZgQ+J5f6g6w=="
 			crossorigin="anonymous"
 			referrerpolicy="no-referrer"
 		/>
@@ -17,17 +16,17 @@
 	<body>
 		<!-- ■■■ オープニングアニメーション ■■■ -->
 		<div class="opening-container" id="opening-container">
+			<!-- タイプライター風のテキスト表示 -->
 			<div class="text-container">
-				<span id="typed-text"></span>
+				<span id="opening-text"></span>
 				<span class="cursor"></span>
 			</div>
+			<!-- ブロック(グリッド)アニメーション -->
 			<div class="grid" id="grid"></div>
-			<div class="background"></div>
 		</div>
-		<!-- ■■■ オープニングアニメーション終了 ■■■ -->
 
 		<!-- ■■■ メインページ ■■■ -->
-		<div class="main-content" id="main-content" style="display: none">
+		<div class="main-content" id="main-content" style="opacity: 0">
 			<!-- ヘッダー -->
 			<header class="header">
 				<nav class="nav">
@@ -54,8 +53,12 @@
 
 			<!-- 自己紹介セクション -->
 			<section id="about" class="about">
-				<h2 class="section-title">About Me</h2>
+				<h2 class="section-title typewriter-title" data-title="About Me">
+					<!-- タイプライター風エフェクト用にJSで書き換え予定 -->
+					About Me
+				</h2>
 				<div class="about-container">
+					<!-- プロフィール写真など -->
 					<img
 						src="https://via.placeholder.com/400x300"
 						alt="プロフィール写真"
@@ -86,9 +89,11 @@
 				</div>
 			</section>
 
-			<!-- 経歴セクション -->
+			<!-- Careerセクション -->
 			<section id="career" class="career">
-				<h2 class="section-title">Career</h2>
+				<h2 class="section-title typewriter-title" data-title="Career">
+					Career
+				</h2>
 				<div class="career-container">
 					<div class="career-item">
 						<h3>大学</h3>
@@ -101,21 +106,15 @@
 							2023年9月)
 						</p>
 					</div>
-					<!-- 追加の経歴 -->
-					<div class="career-item">
-						<h3>アルバイト</h3>
-						<p>データ入力オペレーター (2022年6月 - 2022年8月)</p>
-					</div>
-					<div class="career-item">
-						<h3>ボランティア</h3>
-						<p>地域コミュニティイベント運営補助 (2021年10月 - 2022年3月)</p>
-					</div>
+					<!-- 追加の経歴を必要に応じて追加 -->
 				</div>
 			</section>
 
-			<!-- スキルセクション -->
+			<!-- Skillsセクション -->
 			<section id="skills" class="skills">
-				<h2 class="section-title">Skills</h2>
+				<h2 class="section-title typewriter-title" data-title="Skills">
+					Skills
+				</h2>
 				<div class="skill-list">
 					<div class="skill-category">
 						<h3><i class="fas fa-code"></i> Programming Languages</h3>
@@ -146,7 +145,7 @@
 
 			<!-- 作品セクション -->
 			<section id="works" class="works">
-				<h2 class="section-title">Works</h2>
+				<h2 class="section-title typewriter-title" data-title="Works">Works</h2>
 				<div class="carousel-container">
 					<div class="carousel">
 						<!-- 作品例1 -->
@@ -203,7 +202,6 @@
 								</div>
 							</div>
 						</div>
-						<!-- 必要に応じて作品を追加 -->
 					</div>
 					<!-- カルーセルのナビゲーション -->
 					<button class="carousel-button prev">
@@ -228,7 +226,7 @@
 						<div class="modal-carousel-item active">
 							<img
 								src="https://via.placeholder.com/800x500"
-								alt="Work1 Detail"
+								alt="Work Detail 1"
 								class="modal-image"
 							/>
 							<div class="modal-text">
@@ -241,7 +239,7 @@
 						<div class="modal-carousel-item">
 							<img
 								src="https://via.placeholder.com/800x500"
-								alt="Work2 Detail"
+								alt="Work Detail 2"
 								class="modal-image"
 							/>
 							<div class="modal-text">
@@ -254,7 +252,7 @@
 						<div class="modal-carousel-item">
 							<img
 								src="https://via.placeholder.com/800x500"
-								alt="Work3 Detail"
+								alt="Work Detail 3"
 								class="modal-image"
 							/>
 							<div class="modal-text">
@@ -282,7 +280,9 @@
 
 			<!-- 資格セクション -->
 			<section id="qualifications" class="qualifications">
-				<h2 class="section-title">Qualifications</h2>
+				<h2 class="section-title typewriter-title" data-title="Qualifications">
+					Qualifications
+				</h2>
 				<ul>
 					<li>基本情報技術者試験 合格</li>
 					<li>TOEIC 750点</li>
@@ -294,7 +294,9 @@
 
 			<!-- お問い合わせセクション -->
 			<section id="contact" class="contact">
-				<h2 class="section-title">Contact</h2>
+				<h2 class="section-title typewriter-title" data-title="Contact">
+					Contact
+				</h2>
 				<div class="contact-container">
 					<form class="contact-form" id="contact-form">
 						<div class="form-group">
@@ -318,22 +320,24 @@
 					</form>
 
 					<div class="direct-contact">
-						<h3>直接メールでお問い合わせいただく場合はこちら</h3>
-						<p>ご質問やご相談など、お気軽にメールをお送りください</p>
-						<a href="mailto:example@example.com" class="email-link">
-							<i class="fas fa-envelope"></i>
-							example@example.com
-						</a>
+						<!-- 背景を抑えめに、モノトーンでプログラム風イメージに変更 -->
+						<h3>お問い合わせ</h3>
+						<p>
+							ご質問やご相談などがございましたら、<br />
+							お気軽にこちらのメールアドレス宛にご連絡ください。
+						</p>
+						<a href="mailto:example@example.com" class="email-link"
+							>example@example.com</a
+						>
 					</div>
 				</div>
 			</section>
 
+			<!-- フッター -->
 			<footer class="footer">
 				<p>&copy; 2025 山田太郎</p>
 			</footer>
 		</div>
-		<!-- ■■■ メインページ終了 ■■■ -->
-
 		<script src="script.js"></script>
 	</body>
 </html>

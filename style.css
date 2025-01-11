@@ -1,56 +1,74 @@
-/* リセット */
+/*************************************************************
+ * style.css
+ * ポートフォリオサイト用のメインスタイルシート
+ * 
+ * 主な構成:
+ *    1. リセット & 全体設定
+ *    2. オープニングアニメーション (opening-container)
+ *    3. メインページ (main-content) 全体
+ *    4. ヘッダー & ナビゲーション
+ *    5. ヒーローセクション
+ *    6. セクション共通デザイン
+ *    7. About, Career, Skills, Works, Qualifications, Contact
+ *    8. カルーセル & モーダル
+ *    9. レスポンシブ対応
+ *************************************************************/
+
+/*-----------------------------------------------------------
+  1. リセット & 全体設定
+-----------------------------------------------------------*/
 * {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
 }
 
-/* 全体設定 */
+/* HTML要素のデフォルト設定を最小限に */
+html,
 body {
-	font-family: "Helvetica Neue", Arial, sans-serif;
-	background: #f7f7f8;
-	color: #333;
-	scroll-behavior: smooth;
+	width: 100%;
+	height: 100%;
+	font-family: "Consolas", monospace, sans-serif;
+	color: #d4d4d4;
+	background-color: #1e1e1e;
+	scroll-behavior: smooth; /* スムーズスクロール */
 }
 
-/* ■■■ オープニングアニメーション部分 ■■■ */
+/*-----------------------------------------------------------
+	2. オープニングアニメーション (opening-container)
+  -----------------------------------------------------------*/
 .opening-container {
 	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
-	height: 100vh;
-	overflow: hidden;
+	height: 100%;
+	background-color: #1e1e1e; /* プログラムエディタ風の背景色 */
 	z-index: 9999;
-	background-color: white;
+	overflow: hidden;
 }
 
+/* タイプライター文字表示部分 */
 .text-container {
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	z-index: 10;
-	font-family: monospace;
-	font-size: 2rem;
-	color: white;
+	font-size: 1.5rem;
+	color: #d4d4d4;
 }
 
+/* カーソル点滅 */
 .cursor {
 	display: inline-block;
-	width: 2px;
-	height: 1.2em;
-	background-color: white;
-	margin-left: 2px;
-	animation: blink 1s infinite;
+	width: 5px;
+	height: 1.2rem;
+	margin-left: 5px;
+	background-color: #d4d4d4;
+	animation: blink 1.2s infinite;
 }
 
-@keyframes blink {
-	50% {
-		opacity: 0;
-	}
-}
-
+/* ブロックアニメーション用グリッド */
 .grid {
 	position: absolute;
 	top: 0;
@@ -58,89 +76,90 @@ body {
 	width: 100%;
 	height: 100%;
 	display: grid;
-	grid-template-columns: repeat(20, 1fr);
-	grid-template-rows: repeat(15, 1fr);
-	z-index: 5;
+	/* script.js で 15×20 のdivを生成  */
 }
 
+/* 初期状態のブロックデザイン */
 .grid-item {
-	background-color: black;
-	transition: transform 0.5s, opacity 0.5s;
+	background-color: #1e1e1e;
+	transition: transform 0.5s ease, opacity 0.5s ease;
 }
 
+/* ブロックを上方向にフェードアウト */
 .grid-item.animate {
 	transform: translateY(-100%);
 	opacity: 0;
 }
 
-.background {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: #333;
-	z-index: 1;
+/* カーソル点滅アニメーション */
+@keyframes blink {
+	50% {
+		opacity: 0;
+	}
 }
 
-/* ■■■ メインページ ■■■ */
-
-/* ヘッダー */
-.header {
+/*-----------------------------------------------------------
+	3. メインページ (main-content) 全体
+  -----------------------------------------------------------*/
+.main-content {
+	position: relative;
 	width: 100%;
-	background-color: #fff;
+	min-height: 100vh;
+	background-color: #1e1e1e; /* モノトーンでプログラム風 */
+	opacity: 1; /* 最初は script.js 側で 0 → 1に変更している */
+	transition: opacity 1s ease;
+}
+
+/*-----------------------------------------------------------
+	4. ヘッダー & ナビゲーション
+  -----------------------------------------------------------*/
+.header {
 	position: fixed;
 	top: 0;
 	left: 0;
+	width: 100%;
 	z-index: 5000;
-	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	background-color: #2d2d2d; /* ヘッダーのベース色(濃いグレー) */
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .nav ul {
+	list-style: none;
 	display: flex;
 	justify-content: center;
-	list-style: none;
 	padding: 15px 0;
+	margin: 0;
 }
 
 .nav ul li {
-	margin: 0 25px;
+	margin: 0 15px;
 }
 
 .nav ul li a {
-	color: #333;
 	text-decoration: none;
+	color: #d4d4d4;
 	font-weight: bold;
 	position: relative;
 	transition: color 0.3s ease;
 }
 
-.nav ul li a::after {
-	content: "";
-	position: absolute;
-	width: 0;
-	height: 2px;
-	background: #007bff;
-	left: 50%;
-	bottom: -5px;
-	transition: width 0.3s ease, left 0.3s ease;
+/* ナビゲーションリンクホバー時 */
+.nav ul li a:hover {
+	color: #569cd6; /* VSCode風の青色 */
 }
 
-.nav ul li a:hover::after {
-	width: 100%;
-	left: 0;
-}
-
-/* ヒーローセクション */
+/*-----------------------------------------------------------
+	5. ヒーローセクション
+  -----------------------------------------------------------*/
 .hero {
 	width: 100%;
 	height: 100vh;
-	background: url("https://via.placeholder.com/1920x1080?text=Hero+Background")
-		center/cover no-repeat;
+	margin-top: 60px; /* ヘッダーの高さ分マージン */
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin-top: 60px; /* ヘッダーの高さ考慮 */
+	background: url("https://via.placeholder.com/1920x1080?text=Hero+Background")
+		center/cover no-repeat;
 	position: relative;
 }
 
@@ -151,114 +170,88 @@ body {
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background-color: rgba(0, 123, 255, 0.5);
+	background-color: rgba(88, 88, 88, 0.5);
+	/* 少しグレーの半透明でオーバーレイ */
 }
 
 .hero-content {
 	position: relative;
 	text-align: center;
-	color: #fff;
-	animation: fadeInUp 1.5s ease;
+	z-index: 1; /* オーバーレイより前面 */
 }
 
 .hero-title {
-	font-size: 4rem;
+	font-size: 3rem;
 	margin-bottom: 20px;
-	letter-spacing: 2px;
-	text-shadow: 0 4px 6px rgba(0, 0, 0, 0.6);
-	animation: bounceIn 1s;
+	color: #dcdcdc;
+	text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
 }
 
 .hero-subtitle {
 	font-size: 1.5rem;
-	letter-spacing: 1px;
-	text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+	color: #909090;
 	margin-bottom: 30px;
-	animation: fadeIn 1.5s;
 }
 
 .hero-button {
-	display: inline-block;
-	padding: 12px 25px;
-	background-color: #007bff;
-	color: #fff;
+	padding: 10px 20px;
 	border-radius: 25px;
+	background-color: #2d2d2d;
+	color: #9cdcfe;
 	text-decoration: none;
 	font-weight: bold;
 	transition: background-color 0.3s ease, transform 0.3s ease;
-	animation: slideIn 1s;
 }
 
 .hero-button:hover {
-	background-color: #0056b3;
+	background-color: #3f3f3f;
 	transform: translateY(-3px);
 }
 
-/* ヒーローセクション用アニメーション */
-@keyframes bounceIn {
-	0% {
-		transform: scale(0.3);
-		opacity: 0;
-	}
-	50% {
-		transform: scale(1.05);
-		opacity: 1;
-	}
-	70% {
-		transform: scale(0.9);
-	}
-	100% {
-		transform: scale(1);
-	}
+/*-----------------------------------------------------------
+	6. セクション共通デザイン
+  -----------------------------------------------------------*/
+/* セクションタイトル */
+.section-title {
+	text-align: center;
+	font-size: 2rem;
+	margin: 60px 0 40px 0;
+	color: #d4d4d4;
+	opacity: 0; /* フェードイン前は非表示 */
+	transform: translateY(30px);
+	transition: opacity 1s ease, transform 1s ease;
 }
 
-@keyframes fadeIn {
-	from {
-		opacity: 0;
-	}
-	to {
-		opacity: 1;
-	}
+/* .visible が付与されたらフェードイン */
+.section-title.visible {
+	opacity: 1;
+	transform: translateY(0);
 }
 
-@keyframes slideIn {
-	from {
-		transform: translateX(-50px);
-		opacity: 0;
-	}
-	to {
-		transform: translateX(0);
-		opacity: 1;
-	}
+/* フェードイン用クラス */
+.visible {
+	opacity: 1 !important;
+	transform: none !important;
 }
 
-@keyframes fadeInUp {
-	0% {
-		opacity: 0;
-		transform: translateY(30px);
-	}
-	100% {
-		opacity: 1;
-		transform: none;
-	}
-}
-
+/*-----------------------------------------------------------
+	7. About, Career, Skills, Works, Qualifications, Contact
+  -----------------------------------------------------------*/
 /* Aboutセクション */
 .about {
-	padding: 80px 20px;
-	background-color: #fafafa;
+	padding: 60px 20px;
+	background-color: #252526; /* Visual Studio Codeのやや暗め背景 */
 }
 
 .about-container {
 	max-width: 1200px;
 	margin: 0 auto;
 	display: flex;
-	gap: 50px;
-	flex-wrap: wrap;
+	gap: 40px;
 	align-items: center;
 	opacity: 0;
-	transform: translateY(50px);
-	transition: opacity 0.7s ease, transform 0.7s ease;
+	transform: translateY(30px);
+	transition: opacity 1s ease, transform 1s ease;
 }
 
 .about-container.visible {
@@ -269,43 +262,36 @@ body {
 .profile-image {
 	width: 400px;
 	max-width: 100%;
-	border-radius: 15px;
-	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+	border-radius: 10px;
 }
 
-.about-text {
-	flex: 1;
-	font-size: 1.1rem;
-	line-height: 1.8;
-}
-
+/* SNSリンク (= social-links) */
 .social-links {
 	margin-top: 20px;
 }
-
 .social-links a {
-	color: #333;
+	color: #d4d4d4;
 	font-size: 1.5rem;
 	margin-right: 15px;
 	transition: color 0.3s ease, transform 0.3s ease;
 }
-
 .social-links a:hover {
-	color: #007bff;
-	transform: translateY(-5px);
+	color: #c586c0; /* 紫系 */
+	transform: translateY(-3px);
 }
 
 /* Careerセクション */
 .career {
-	padding: 80px 20px;
+	padding: 60px 20px;
+	background-color: #1e1e1e;
 }
 
 .career-container {
 	max-width: 800px;
 	margin: 0 auto;
 	opacity: 0;
-	transform: translateY(50px);
-	transition: opacity 0.7s ease, transform 0.7s ease;
+	transform: translateY(30px);
+	transition: opacity 1s ease, transform 1s ease;
 }
 
 .career-container.visible {
@@ -314,27 +300,25 @@ body {
 }
 
 .career-item {
-	background-color: #fff;
-	padding: 20px 25px;
+	background-color: #2d2d2d;
+	padding: 20px;
 	margin-bottom: 20px;
-	border-left: 5px solid #007bff;
-	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	border-left: 5px solid #569cd6; /* VSCode風の青 */
 	transition: transform 0.3s ease;
 }
-
 .career-item:hover {
-	transform: translateX(10px);
+	transform: translateX(5px);
 }
-
 .career-item h3 {
-	margin-bottom: 10px;
-	font-size: 1.5rem;
-	color: #007bff;
+	margin-bottom: 5px;
+	font-size: 1.4rem;
+	color: #d4d4d4;
 }
 
 /* Skillsセクション */
 .skills {
-	padding: 80px 20px;
+	padding: 60px 20px;
+	background-color: #252526;
 }
 
 .skill-list {
@@ -345,8 +329,8 @@ body {
 	flex-wrap: wrap;
 	justify-content: center;
 	opacity: 0;
-	transform: translateY(50px);
-	transition: opacity 0.7s ease, transform 0.7s ease;
+	transform: translateY(30px);
+	transition: opacity 1s ease, transform 1s ease;
 }
 
 .skill-list.visible {
@@ -355,53 +339,40 @@ body {
 }
 
 .skill-category {
-	background-color: #fff;
-	border-radius: 15px;
-	padding: 20px 25px;
-	flex: 1;
+	background-color: #2d2d2d;
+	border-radius: 10px;
+	padding: 20px;
 	min-width: 250px;
 	max-width: 350px;
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 	transition: transform 0.3s ease;
 }
-
 .skill-category:hover {
-	transform: translateY(-5px);
+	transform: translateY(-3px);
 }
-
 .skill-category h3 {
-	margin-bottom: 15px;
-	font-size: 1.3rem;
-	color: #007bff;
-	display: flex;
-	align-items: center;
+	margin-bottom: 10px;
+	font-size: 1.2rem;
+	color: #4ec9b0; /* 緑/シアン系 */
 }
-
-.skill-category h3 i {
-	margin-right: 10px;
-}
-
 .skill-category ul {
 	list-style: none;
 }
-
 .skill-category ul li {
-	margin-bottom: 10px;
-	padding-left: 20px;
+	margin-bottom: 8px;
+	padding-left: 15px;
 	position: relative;
 }
-
 .skill-category ul li::before {
-	content: "•";
+	content: "●";
 	position: absolute;
 	left: 0;
-	color: #007bff;
+	color: #ce9178; /* 赤っぽいオレンジ */
 }
 
 /* Worksセクション */
 .works {
-	padding: 80px 20px;
-	background-color: #fafafa;
+	padding: 60px 20px;
+	background-color: #1e1e1e;
 }
 
 .carousel-container {
@@ -415,101 +386,85 @@ body {
 	overflow: hidden;
 	position: relative;
 }
-
 .carousel-item {
 	min-width: 100%;
-	transition: transform 0.5s ease, opacity 0.5s ease;
 	opacity: 0;
 	transform: scale(0.95);
+	transition: opacity 0.5s ease, transform 0.5s ease;
 }
-
 .carousel-item.active {
 	opacity: 1;
 	transform: scale(1);
 }
-
 .work-card {
-	background-color: #fff;
-	border-radius: 15px;
+	background-color: #2d2d2d;
+	border-radius: 10px;
 	overflow: hidden;
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-	height: 100%;
 	display: flex;
 	flex-direction: column;
 }
-
 .work-image {
 	width: 100%;
 	height: 250px;
 	object-fit: cover;
 	transition: transform 0.5s ease;
 }
-
 .work-card:hover .work-image {
-	transform: scale(1.05);
+	transform: scale(1.03);
 }
-
 .work-content {
 	padding: 20px;
 	flex: 1;
 	display: flex;
 	flex-direction: column;
 }
-
 .work-content h3 {
+	color: #d4d4d4;
 	margin-bottom: 10px;
-	font-size: 1.4rem;
-	color: #007bff;
+	font-size: 1.2rem;
 }
-
 .work-content p {
 	flex: 1;
 	margin-bottom: 15px;
+	line-height: 1.5;
 }
-
 .work-link {
 	align-self: flex-start;
-	text-decoration: none;
-	color: #007bff;
-	font-weight: bold;
 	background: none;
+	color: #9cdcfe;
 	border: none;
-	cursor: pointer;
 	padding: 0;
+	cursor: pointer;
+	font-weight: bold;
 	transition: color 0.3s ease;
 }
-
 .work-link:hover {
-	color: #0056b3;
+	color: #569cd6;
 }
 
-/* カルーセルのナビゲーション */
+/* カルーセル・ナビゲーション */
 .carousel-button {
 	position: absolute;
 	top: 50%;
 	transform: translateY(-50%);
-	background: rgba(255, 255, 255, 0.8);
+	background-color: rgba(128, 128, 128, 0.3);
 	border: none;
 	padding: 10px;
 	border-radius: 50%;
 	cursor: pointer;
-	transition: background 0.3s ease, transform 0.3s ease;
 	z-index: 10;
+	transition: background 0.3s ease, transform 0.3s ease;
 }
-
 .carousel-button:hover {
-	background: rgba(255, 255, 255, 1);
+	background-color: rgba(128, 128, 128, 0.6);
 	transform: scale(1.1);
 }
-
 .carousel-button.prev {
 	left: 10px;
 }
-
 .carousel-button.next {
 	right: 10px;
 }
-
 .carousel-indicators {
 	position: absolute;
 	bottom: 10px;
@@ -518,23 +473,21 @@ body {
 	display: flex;
 	gap: 10px;
 }
-
 .indicator {
 	width: 12px;
 	height: 12px;
-	background-color: #ddd;
+	background-color: #777;
 	border-radius: 50%;
 	cursor: pointer;
 	transition: background-color 0.3s ease;
 }
-
 .indicator.active {
-	background-color: #007bff;
+	background-color: #9cdcfe;
 }
 
-/* モーダル */
+/* モーダル (Works 詳細) */
 .modal {
-	display: none;
+	display: none; /* 初期非表示 */
 	position: fixed;
 	z-index: 10000;
 	left: 0;
@@ -545,122 +498,103 @@ body {
 	background-color: rgba(0, 0, 0, 0.8);
 	animation: fadeInModal 0.5s;
 }
-
 .modal-content {
-	background-color: #fefefe;
+	background-color: #2d2d2d;
+	color: #d4d4d4;
 	margin: 5% auto;
 	padding: 20px;
-	border-radius: 15px;
+	border-radius: 10px;
 	width: 90%;
 	max-width: 900px;
 	position: relative;
 	animation: slideDown 0.5s;
 }
-
 .close-button {
-	color: #aaa;
 	position: absolute;
 	top: 15px;
 	right: 25px;
 	font-size: 2rem;
-	font-weight: bold;
+	color: #aaa;
 	cursor: pointer;
+	transition: color 0.3s ease;
 }
-
-.close-button:hover,
-.close-button:focus {
-	color: #000;
+.close-button:hover {
+	color: #fff;
 }
-
 .modal-carousel {
 	display: flex;
 	overflow: hidden;
 	position: relative;
 }
-
 .modal-carousel-item {
 	min-width: 100%;
-	transition: transform 0.5s ease, opacity 0.5s ease;
+	transition: opacity 0.5s ease, transform 0.5s ease;
 	opacity: 0;
 	transform: scale(0.95);
 }
-
 .modal-carousel-item.active {
 	opacity: 1;
 	transform: scale(1);
 }
-
 .modal-image {
 	width: 100%;
 	height: 400px;
 	object-fit: cover;
-	border-radius: 10px;
+	border-radius: 5px;
 }
-
 .modal-text {
 	margin-top: 20px;
 }
-
 .modal-text h3 {
-	font-size: 1.8rem;
-	color: #007bff;
+	color: #4ec9b0; /* 緑系 */
 	margin-bottom: 10px;
 }
-
 .modal-text p {
-	font-size: 1.1rem;
 	line-height: 1.6;
 }
-
-/* モーダルのナビゲーション */
 .modal-carousel-button {
 	position: absolute;
 	top: 50%;
 	transform: translateY(-50%);
-	background: rgba(255, 255, 255, 0.8);
+	background-color: rgba(128, 128, 128, 0.3);
 	border: none;
 	padding: 10px;
 	border-radius: 50%;
 	cursor: pointer;
-	transition: background 0.3s ease, transform 0.3s ease;
-	z-index: 10;
+	z-index: 11;
+	transition: background 0.3s, transform 0.3s;
 }
-
 .modal-carousel-button:hover {
-	background: rgba(255, 255, 255, 1);
+	background-color: rgba(128, 128, 128, 0.5);
 	transform: scale(1.1);
 }
-
 .modal-carousel-button.prev {
 	left: 10px;
 }
-
 .modal-carousel-button.next {
 	right: 10px;
 }
-
 .modal-carousel-indicators {
+	display: flex;
+	gap: 10px;
 	position: absolute;
 	bottom: 10px;
 	left: 50%;
 	transform: translateX(-50%);
-	display: flex;
-	gap: 10px;
 }
-
 .modal-indicator {
 	width: 12px;
 	height: 12px;
-	background-color: #ddd;
+	background-color: #777;
 	border-radius: 50%;
 	cursor: pointer;
 	transition: background-color 0.3s ease;
 }
-
 .modal-indicator.active {
-	background-color: #007bff;
+	background-color: #9cdcfe;
 }
 
+/* モーダルアニメーション */
 @keyframes fadeInModal {
 	from {
 		opacity: 0;
@@ -669,10 +603,9 @@ body {
 		opacity: 1;
 	}
 }
-
 @keyframes slideDown {
 	from {
-		transform: translateY(-50px);
+		transform: translateY(-30px);
 		opacity: 0;
 	}
 	to {
@@ -681,43 +614,39 @@ body {
 	}
 }
 
-/* Qualificationsセクション */
+/* 資格セクション */
 .qualifications {
-	padding: 80px 20px;
+	padding: 60px 20px;
+	background-color: #252526;
 }
-
 .qualifications ul {
 	max-width: 800px;
 	margin: 0 auto;
 	list-style: none;
 	padding: 0;
 	opacity: 0;
-	transform: translateY(50px);
-	transition: opacity 0.7s ease, transform 0.7s ease;
+	transform: translateY(30px);
+	transition: opacity 1s ease, transform 1s ease;
 }
-
-.qualifications.visible ul {
+.qualifications ul.visible {
 	opacity: 1;
 	transform: translateY(0);
 }
-
 .qualifications li {
-	background-color: #fff;
+	background-color: #2d2d2d;
 	padding: 15px 20px;
 	margin-bottom: 10px;
-	border-left: 5px solid #007bff;
-	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	border-left: 5px solid #ce9178; /* 赤系 */
 	transition: transform 0.3s ease;
 }
-
 .qualifications li:hover {
 	transform: translateX(5px);
 }
 
 /* Contactセクション */
 .contact {
-	padding: 80px 20px;
-	background-color: #fff;
+	padding: 60px 20px;
+	background-color: #1e1e1e;
 }
 
 .contact-container {
@@ -725,101 +654,88 @@ body {
 	margin: 0 auto;
 	display: flex;
 	flex-wrap: wrap;
-	gap: 50px;
+	gap: 40px;
 }
 
 .contact-form {
 	flex: 1;
-	background-color: #fafafa;
-	padding: 30px 40px;
-	border-radius: 15px;
-	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	background-color: #2d2d2d;
+	padding: 30px;
+	border-radius: 10px;
 }
 
 .contact-form .form-group {
 	margin-bottom: 20px;
 }
-
 .contact-form label {
 	display: block;
-	margin-bottom: 8px;
+	margin-bottom: 5px;
+	color: #9cdcfe;
 	font-weight: bold;
-	color: #333;
 }
-
 .contact-form input,
 .contact-form textarea {
 	width: 100%;
-	padding: 10px 15px;
-	border: 2px solid #ddd;
-	border-radius: 8px;
-	font-size: 1rem;
+	padding: 10px;
+	border: 2px solid #3f3f3f;
+	border-radius: 5px;
+	background-color: #252526;
+	color: #d4d4d4;
 	transition: border-color 0.3s ease;
 }
-
 .contact-form input:focus,
 .contact-form textarea:focus {
-	border-color: #007bff;
+	border-color: #569cd6;
 	outline: none;
 }
-
 .submit-button {
-	display: inline-block;
-	padding: 12px 25px;
-	background-color: #007bff;
-	color: #fff;
+	padding: 10px 20px;
+	background-color: #3f3f3f;
+	color: #d4d4d4;
 	border: none;
 	border-radius: 25px;
 	cursor: pointer;
 	font-weight: bold;
 	transition: background-color 0.3s ease, transform 0.3s ease;
 }
-
 .submit-button:hover {
-	background-color: #0056b3;
+	background-color: #5f5f5f;
 	transform: translateY(-3px);
 }
 
-/* 直接メールでお問い合わせいただく場合のデザイン */
+/* 
+	 “直接メールでお問い合わせいただく場合はこちら”部分を
+	 抑えめなモノトーンデザインに変更
+  */
 .direct-contact {
 	flex: 1;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	background-color: #007bff;
-	border-radius: 15px;
+	background-color: #252526;
+	border-radius: 10px;
 	padding: 30px;
 	text-align: center;
-	color: #fff;
 }
-
 .direct-contact h3 {
-	margin-bottom: 15px;
 	font-size: 1.4rem;
-	font-weight: bold;
+	margin-bottom: 15px;
+	color: #c586c0; /* 紫 */
 }
-
 .direct-contact p {
+	font-size: 1rem;
 	margin-bottom: 10px;
-	font-size: 1.1rem;
-	max-width: 300px;
-	line-height: 1.6;
+	color: #d4d4d4;
 }
-
 .email-link {
 	display: inline-block;
 	text-decoration: none;
-	color: #fff;
-	background-color: #0056b3;
-	padding: 8px 15px;
-	border-radius: 25px;
-	font-weight: bold;
-	transition: background-color 0.3s ease, transform 0.3s ease;
+	color: #9cdcfe;
+	border: 1px solid #9cdcfe;
+	border-radius: 5px;
+	padding: 8px 16px;
+	transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
-
 .email-link:hover {
-	background-color: #003f8a;
+	background-color: #9cdcfe;
+	color: #1e1e1e;
 	transform: translateY(-3px);
 }
 
@@ -827,36 +743,40 @@ body {
 .footer {
 	text-align: center;
 	padding: 20px;
-	background-color: #222;
-	color: #fff;
+	background-color: #2d2d2d;
+	color: #d4d4d4;
 }
 
-/* レスポンシブ */
+/*-----------------------------------------------------------
+	9. レスポンシブ対応
+  -----------------------------------------------------------*/
 @media (max-width: 768px) {
 	.nav ul {
 		flex-direction: column;
+		align-items: center;
 	}
 
 	.about-container,
-	.skill-list {
+	.skill-list,
+	.contact-container {
 		flex-direction: column;
 		align-items: center;
+	}
+
+	.hero-title {
+		font-size: 2.2rem;
+	}
+
+	.hero-subtitle {
+		font-size: 1.2rem;
 	}
 
 	.carousel-button.prev,
 	.carousel-button.next,
 	.modal-carousel-button.prev,
 	.modal-carousel-button.next {
-		top: 90%;
+		top: 85%;
 		transform: translateY(-50%) rotate(90deg);
-	}
-
-	.hero-title {
-		font-size: 2.5rem;
-	}
-
-	.hero-subtitle {
-		font-size: 1.2rem;
 	}
 
 	.modal-image {
@@ -865,9 +785,5 @@ body {
 
 	.contact-container {
 		flex-direction: column;
-	}
-
-	.direct-contact {
-		margin-top: 0;
 	}
 }
