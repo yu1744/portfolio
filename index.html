@@ -3,320 +3,459 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>山田太郎のポートフォリオ</title>
+		<title>Developer Portfolio</title>
 		<link rel="stylesheet" href="style.css" />
-		<!-- Font Awesome CDN (アイコン使用のため) -->
+		<link
+			href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap"
+			rel="stylesheet"
+		/>
 		<link
 			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-			crossorigin="anonymous"
-			referrerpolicy="no-referrer"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
 		/>
 	</head>
 	<body>
-		<!-- ■■■ オープニングアニメーション ■■■ -->
-		<div class="opening-container" id="opening-container">
-			<!-- タイプライター風のテキスト表示 -->
-			<div class="text-container">
-				<span id="opening-text"></span>
-				<span class="cursor"></span>
+		<!-- ヘッダー -->
+		<header>
+			<nav class="navbar">
+				<div class="logo">Portfolio.dev</div>
+				<ul class="nav-links">
+					<li><a href="#about">About</a></li>
+					<li><a href="#education">Education</a></li>
+					<li><a href="#certifications">Certifications</a></li>
+					<li><a href="#skills">Skills</a></li>
+					<li><a href="#projects">Projects</a></li>
+					<li><a href="#contact">Contact</a></li>
+				</ul>
+				<div class="hamburger">
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
+			</nav>
+		</header>
+		<!-- ローディングアニメーション -->
+		<div class="loading-container">
+			<div class="loading-content">
+				<div class="text-container">
+					<span id="typed-text"></span>
+					<span class="cursor"></span>
+				</div>
+				<div class="grid" id="grid"></div>
+				<div class="background"></div>
 			</div>
-			<!-- ブロック(グリッド)アニメーション -->
-			<div class="grid" id="grid"></div>
 		</div>
 
-		<!-- ■■■ メインページ ■■■ -->
-		<div class="main-content" id="main-content" style="opacity: 0">
-			<!-- ヘッダー -->
-			<header class="header">
-				<nav class="nav">
-					<ul>
-						<li><a href="#hero">Home</a></li>
-						<li><a href="#about">About</a></li>
-						<li><a href="#career">Career</a></li>
-						<li><a href="#skills">Skills</a></li>
-						<li><a href="#works">Works</a></li>
-						<li><a href="#qualifications">Qualifications</a></li>
-						<li><a href="#contact">Contact</a></li>
-					</ul>
-				</nav>
-			</header>
-
+		<!-- メインコンテンツ -->
+		<main>
 			<!-- ヒーローセクション -->
-			<section id="hero" class="hero">
+			<section id="hero" class="hero-section">
 				<div class="hero-content">
-					<h2 class="hero-title">山田 太郎</h2>
-					<p class="hero-subtitle">情熱的なソフトウェアエンジニア</p>
-					<a href="#about" class="hero-button">私について</a>
+					<div class="hero-text">
+						<h1>Hello, I'm <span class="highlight">あなたの名前</span></h1>
+						<p class="subtitle">Software Engineer</p>
+						<p class="hero-description">
+							Web開発とシステム設計に情熱を持つエンジニアです。<br />
+							ユーザーにとって価値のあるサービスを作ることを心がけています。
+						</p>
+						<div class="hero-buttons">
+							<a href="#contact" class="btn primary">お問い合わせ</a>
+							<a href="#projects" class="btn secondary">制作物を見る</a>
+						</div>
+					</div>
+					<div class="scroll-indicator">
+						<div class="mouse"></div>
+						<span>Scroll</span>
+					</div>
 				</div>
 			</section>
-
-			<!-- 自己紹介セクション -->
-			<section id="about" class="about">
-				<h2 class="section-title typewriter-title" data-title="About Me">
-					About Me
-				</h2>
-				<div class="about-container">
-					<!-- プロフィール写真など -->
-					<img
-						src="https://via.placeholder.com/400x300"
-						alt="プロフィール写真"
-						class="profile-image"
-					/>
-					<div class="about-text">
-						<p>
-							はじめまして。山田太郎と申します。大学では情報工学を専攻しており、
-							Webシステム開発やデータベース設計に興味があります。ユーザーが使いやすく、
-							デザイン性の高いシステムを作りたいと考えています。
-						</p>
-						<p>
-							フロントエンドとバックエンド両方に興味があり、
-							トータルで開発に携わりたいです。どうぞよろしくお願いいたします。
-						</p>
-						<div class="social-links">
-							<a href="https://github.com/yourusername" target="_blank"
+			<!-- About セクション -->
+			<section id="about" class="section">
+				<div class="section-header">
+					<h2 class="section-title">About</h2>
+					<div class="section-line"></div>
+				</div>
+				<div class="about-content">
+					<div class="about-image">
+						<img src="your-photo.jpg" alt="Profile Image" />
+						<div class="about-social">
+							<a href="#" class="social-link" target="_blank"
 								><i class="fab fa-github"></i
 							></a>
-							<a href="https://linkedin.com/in/yourusername" target="_blank"
+							<a href="#" class="social-link" target="_blank"
 								><i class="fab fa-linkedin"></i
 							></a>
-							<a href="https://twitter.com/yourusername" target="_blank"
+							<a href="#" class="social-link" target="_blank"
 								><i class="fab fa-twitter"></i
 							></a>
 						</div>
 					</div>
-				</div>
-			</section>
-
-			<!-- Careerセクション -->
-			<section id="career" class="career">
-				<h2 class="section-title typewriter-title" data-title="Career">
-					Career
-				</h2>
-				<div class="career-container">
-					<div class="career-item">
-						<h3>大学</h3>
-						<p>東京大学 工学部 情報工学科 (2021年4月 - 2025年3月)</p>
-					</div>
-					<div class="career-item">
-						<h3>インターンシップ</h3>
-						<p>
-							株式会社ABC ソフトウェアエンジニアインターン (2023年7月 -
-							2023年9月)
+					<div class="about-text">
+						<p class="about-description">
+							ここに自己紹介文を入れます。技術への情熱や経験、目指すキャリアについて書きましょう。
 						</p>
-					</div>
-					<!-- 追加の経歴を必要に応じて追加 -->
-				</div>
-			</section>
-
-			<!-- Skillsセクション -->
-			<section id="skills" class="skills">
-				<h2 class="section-title typewriter-title" data-title="Skills">
-					Skills
-				</h2>
-				<div class="skill-list">
-					<div class="skill-category">
-						<h3><i class="fas fa-code"></i> Programming Languages</h3>
-						<ul>
-							<li>HTML / CSS / JavaScript</li>
-							<li>Java / Python / C++</li>
-							<li>SQL (MySQL, PostgreSQL)</li>
-						</ul>
-					</div>
-					<div class="skill-category">
-						<h3><i class="fas fa-tools"></i> Frameworks & Tools</h3>
-						<ul>
-							<li>React / Vue.js</li>
-							<li>Spring Boot</li>
-							<li>Git / GitHub</li>
-						</ul>
-					</div>
-					<div class="skill-category">
-						<h3><i class="fas fa-palette"></i> Design & Others</h3>
-						<ul>
-							<li>UI/UX 基礎</li>
-							<li>Photoshop / Illustrator</li>
-							<li>Agile 開発</li>
-						</ul>
+						<div class="about-highlights">
+							<div class="highlight-item">
+								<i class="fas fa-code"></i>
+								<h3>Web Development</h3>
+								<p>フロントエンド・バックエンド開発</p>
+							</div>
+							<div class="highlight-item">
+								<i class="fas fa-database"></i>
+								<h3>Database Design</h3>
+								<p>効率的なDB設計と実装</p>
+							</div>
+							<div class="highlight-item">
+								<i class="fas fa-cloud"></i>
+								<h3>Cloud Development</h3>
+								<p>AWSを活用したインフラ構築</p>
+							</div>
+						</div>
 					</div>
 				</div>
 			</section>
 
-			<!-- 作品セクション（一眼で実績一覧表示） -->
-			<section id="works" class="works">
-				<h2 class="section-title typewriter-title" data-title="Works">Works</h2>
-				<div class="works-list">
-					<!-- 作品例1 -->
-					<div class="work-card">
-						<img
-							src="https://via.placeholder.com/600x400"
-							alt="Work1"
-							class="work-image"
-						/>
-						<div class="work-content">
-							<h3>システム開発プロジェクトA</h3>
-							<p>
-								大学のチームプロジェクトで開発したWebシステムです。 Spring
-								BootとVue.jsで構築し、データベースにはMySQLを使用しました。
-							</p>
-							<button class="work-link" data-work="0">詳細を見る</button>
+			<!-- Education セクション -->
+			<section id="education" class="section">
+				<div class="section-header">
+					<h2 class="section-title">Education</h2>
+					<div class="section-line"></div>
+				</div>
+				<div class="timeline-container">
+					<div class="timeline">
+						<div class="timeline-item">
+							<div class="timeline-content">
+								<div class="timeline-date">2020年4月 - 2024年3月</div>
+								<h4>○○大学 工学部</h4>
+								<p>情報工学科</p>
+							</div>
+						</div>
+						<div class="timeline-item">
+							<div class="timeline-content">
+								<div class="timeline-date">2017年4月 - 2020年3月</div>
+								<h4>○○高等学校</h4>
+								<p>普通科</p>
+							</div>
 						</div>
 					</div>
-					<!-- 作品例2 -->
-					<div class="work-card">
-						<img
-							src="https://via.placeholder.com/600x400"
-							alt="Work2"
-							class="work-image"
-						/>
-						<div class="work-content">
-							<h3>個人制作Webアプリ</h3>
-							<p>
-								JavaScriptを使って作成したタスク管理アプリ。
-								ローカルストレージを利用し、シンプルなUIを実装しています。
-							</p>
-							<button class="work-link" data-work="1">詳細を見る</button>
-						</div>
-					</div>
-					<!-- 作品例3 -->
-					<div class="work-card">
-						<img
-							src="https://via.placeholder.com/600x400"
-							alt="Work3"
-							class="work-image"
-						/>
-						<div class="work-content">
-							<h3>モバイルアプリ開発</h3>
-							<p>
-								React
-								Nativeを使用して開発したクロスプラットフォーム対応のモバイルアプリです。
-							</p>
-							<button class="work-link" data-work="2">詳細を見る</button>
-						</div>
-					</div>
-					<!-- 必要に応じて作品を追加 -->
 				</div>
 			</section>
 
-			<!-- モーダルセクション（Works詳細） -->
-			<div class="modal" id="work-modal">
-				<div class="modal-content">
-					<span class="close-button">&times;</span>
-					<div class="modal-carousel">
-						<div class="modal-carousel-item active">
-							<img
-								src="https://via.placeholder.com/800x500"
-								alt="Work Detail 1"
-								class="modal-image"
-							/>
-							<div class="modal-text">
-								<h3>システム開発プロジェクトA</h3>
-								<p>
-									詳細なプロジェクト説明がここに入ります。使用技術や達成したことなどを記載します。
-								</p>
-							</div>
+			<!-- Certifications セクション -->
+			<section id="certifications" class="section">
+				<div class="section-header">
+					<h2 class="section-title">Certifications</h2>
+					<div class="section-line"></div>
+				</div>
+				<div class="certifications-container">
+					<div class="certification-card">
+						<div class="certification-icon">
+							<i class="fas fa-certificate"></i>
 						</div>
-						<div class="modal-carousel-item">
-							<img
-								src="https://via.placeholder.com/800x500"
-								alt="Work Detail 2"
-								class="modal-image"
-							/>
-							<div class="modal-text">
-								<h3>個人制作Webアプリ</h3>
-								<p>
-									詳細なプロジェクト説明がここに入ります。使用技術や達成したことなどを記載します。
-								</p>
-							</div>
+						<div class="certification-info">
+							<h4>基本情報技術者</h4>
+							<p class="certification-date">2023年6月取得</p>
 						</div>
-						<div class="modal-carousel-item">
-							<img
-								src="https://via.placeholder.com/800x500"
-								alt="Work Detail 3"
-								class="modal-image"
-							/>
-							<div class="modal-text">
-								<h3>モバイルアプリ開発</h3>
-								<p>
-									詳細なプロジェクト説明がここに入ります。使用技術や達成したことなどを記載します。
-								</p>
+					</div>
+					<div class="certification-card">
+						<div class="certification-icon">
+							<i class="fab fa-aws"></i>
+						</div>
+						<div class="certification-info">
+							<h4>AWS Solutions Architect Associate</h4>
+							<p class="certification-date">2024年1月取得</p>
+						</div>
+					</div>
+					<div class="certification-card">
+						<div class="certification-icon">
+							<i class="fab fa-java"></i>
+						</div>
+						<div class="certification-info">
+							<h4>Oracle Java Silver SE 11</h4>
+							<p class="certification-date">2023年12月取得</p>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- Skills セクション -->
+			<section id="skills" class="section">
+				<div class="section-header">
+					<h2 class="section-title">Skills</h2>
+					<div class="section-line"></div>
+				</div>
+				<div class="skills-container">
+					<div class="skills-category">
+						<h3>Programming Languages</h3>
+						<div class="skills-grid">
+							<div class="skill-item">
+								<div class="skill-header">
+									<div class="skill-icon">
+										<i class="fab fa-js"></i>
+									</div>
+									<div class="skill-info">
+										<h4>JavaScript</h4>
+										<div class="skill-level">
+											<div class="skill-progress" style="width: 90%"></div>
+										</div>
+									</div>
+								</div>
+								<div class="skill-description">
+									<p>
+										モダンなJavaScript開発に精通。React、Vue.jsなどのフレームワークでの開発経験があります。
+									</p>
+								</div>
+							</div>
+
+							<div class="skill-item">
+								<div class="skill-header">
+									<div class="skill-icon">
+										<i class="fab fa-python"></i>
+									</div>
+									<div class="skill-info">
+										<h4>Python</h4>
+										<div class="skill-level">
+											<div class="skill-progress" style="width: 85%"></div>
+										</div>
+									</div>
+								</div>
+								<div class="skill-description">
+									<p>
+										Djangoを用いたWeb開発、データ分析や機械学習の実装経験があります。
+									</p>
+								</div>
+							</div>
+
+							<div class="skill-item">
+								<div class="skill-header">
+									<div class="skill-icon">
+										<i class="fab fa-java"></i>
+									</div>
+									<div class="skill-info">
+										<h4>Java</h4>
+										<div class="skill-level">
+											<div class="skill-progress" style="width: 80%"></div>
+										</div>
+									</div>
+								</div>
+								<div class="skill-description">
+									<p>Spring Bootを使用したバックエンド開発の経験があります。</p>
+								</div>
 							</div>
 						</div>
 					</div>
-					<!-- モーダル内ナビゲーションボタンのhover演出をやや小さく調整 -->
-					<button class="modal-carousel-button prev">
-						<i class="fas fa-chevron-left"></i>
-					</button>
-					<button class="modal-carousel-button next">
-						<i class="fas fa-chevron-right"></i>
-					</button>
-					<div class="modal-carousel-indicators">
-						<span class="modal-indicator active" data-index="0"></span>
-						<span class="modal-indicator" data-index="1"></span>
-						<span class="modal-indicator" data-index="2"></span>
+
+					<div class="skills-category">
+						<h3>Frameworks & Tools</h3>
+						<div class="skills-grid">
+							<div class="skill-item">
+								<div class="skill-header">
+									<div class="skill-icon">
+										<i class="fab fa-react"></i>
+									</div>
+									<div class="skill-info">
+										<h4>React</h4>
+										<div class="skill-level">
+											<div class="skill-progress" style="width: 85%"></div>
+										</div>
+									</div>
+								</div>
+								<div class="skill-description">
+									<p>
+										Hooks、Redux、Context APIを活用した実務開発経験があります。
+									</p>
+								</div>
+							</div>
+
+							<div class="skill-item">
+								<div class="skill-header">
+									<div class="skill-icon">
+										<i class="fab fa-docker"></i>
+									</div>
+									<div class="skill-info">
+										<h4>Docker</h4>
+										<div class="skill-level">
+											<div class="skill-progress" style="width: 75%"></div>
+										</div>
+									</div>
+								</div>
+								<div class="skill-description">
+									<p>コンテナ化とCI/CDパイプラインの構築経験があります。</p>
+								</div>
+							</div>
+
+							<div class="skill-item">
+								<div class="skill-header">
+									<div class="skill-icon">
+										<i class="fab fa-aws"></i>
+									</div>
+									<div class="skill-info">
+										<h4>AWS</h4>
+										<div class="skill-level">
+											<div class="skill-progress" style="width: 70%"></div>
+										</div>
+									</div>
+								</div>
+								<div class="skill-description">
+									<p>EC2、S3、RDS等の主要サービスの利用経験があります。</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Projects セクション -->
+			<section id="projects" class="section">
+				<div class="section-header">
+					<h2 class="section-title">Projects</h2>
+					<div class="section-line"></div>
+				</div>
+				<div class="projects-container">
+					<div class="project-card" data-project="project1">
+						<div class="project-image">
+							<img src="project1-thumbnail.jpg" alt="Project 1 Thumbnail" />
+							<div class="project-overlay">
+								<button class="btn primary project-details-btn">Details</button>
+							</div>
+						</div>
+						<div class="project-info">
+							<h3>Portfolio Website</h3>
+							<p class="project-description">
+								レスポンシブ対応のポートフォリオサイト。モダンな技術とアニメーションを活用。
+							</p>
+							<div class="project-tech">
+								<span class="tech-tag">React</span>
+								<span class="tech-tag">TypeScript</span>
+								<span class="tech-tag">Tailwind CSS</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="project-card" data-project="project2">
+						<div class="project-image">
+							<img src="project2-thumbnail.jpg" alt="Project 2 Thumbnail" />
+							<div class="project-overlay">
+								<button class="btn primary project-details-btn">Details</button>
+							</div>
+						</div>
+						<div class="project-info">
+							<h3>Task Management App</h3>
+							<p class="project-description">
+								シンプルで使いやすいタスク管理アプリケーション。
+							</p>
+							<div class="project-tech">
+								<span class="tech-tag">Vue.js</span>
+								<span class="tech-tag">Node.js</span>
+								<span class="tech-tag">MongoDB</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- Contact セクション -->
+			<section id="contact" class="section">
+				<div class="section-header">
+					<h2 class="section-title">Contact</h2>
+					<div class="section-line"></div>
+				</div>
+				<div class="contact-container">
+					<div class="contact-info">
+						<div class="contact-item">
+							<i class="fas fa-envelope"></i>
+							<h3>Email</h3>
+							<p>your.email@example.com</p>
+						</div>
+						<div class="contact-item">
+							<i class="fas fa-map-marker-alt"></i>
+							<h3>Location</h3>
+							<p>Tokyo, Japan</p>
+						</div>
+					</div>
+					<div class="contact-form">
+						<form id="contact-form">
+							<div class="form-group">
+								<input type="text" placeholder="お名前" required />
+							</div>
+							<div class="form-group">
+								<input type="email" placeholder="メールアドレス" required />
+							</div>
+							<div class="form-group">
+								<input type="text" placeholder="件名" required />
+							</div>
+							<div class="form-group">
+								<textarea placeholder="メッセージ" required></textarea>
+							</div>
+							<button type="submit" class="btn primary">Send Message</button>
+						</form>
+					</div>
+				</div>
+			</section>
+		</main>
+
+		<!-- プロジェクトモーダル -->
+		<div id="project-modal" class="modal">
+			<div class="modal-content">
+				<span class="close-modal">&times;</span>
+				<div class="modal-header">
+					<h2 id="modal-title"></h2>
+					<div class="modal-tags" id="modal-tech-stack"></div>
+				</div>
+				<div class="carousel">
+					<button class="carousel-btn prev">&#10094;</button>
+					<div class="carousel-container">
+						<!-- 画像はJavaScriptで動的に追加 -->
+					</div>
+					<button class="carousel-btn next">&#10095;</button>
+					<div class="carousel-indicators"></div>
+				</div>
+				<div class="project-details">
+					<div class="project-description">
+						<h3>Project Overview</h3>
+						<div id="modal-description"></div>
+					</div>
+					<div class="project-metadata">
+						<div class="metadata-item">
+							<h4>Duration</h4>
+							<p id="modal-duration"></p>
+						</div>
+						<div class="metadata-item">
+							<h4>Role</h4>
+							<p id="modal-role"></p>
+						</div>
+						<div class="metadata-item">
+							<h4>Team</h4>
+							<p id="modal-team"></p>
+						</div>
+					</div>
+					<div class="project-links">
+						<a href="#" class="btn primary" id="demo-link" target="_blank">
+							<i class="fas fa-external-link-alt"></i> Live Demo
+						</a>
+						<a href="#" class="btn secondary" id="github-link" target="_blank">
+							<i class="fab fa-github"></i> Source Code
+						</a>
 					</div>
 				</div>
 			</div>
-
-			<!-- 資格セクション -->
-			<section id="qualifications" class="qualifications">
-				<h2 class="section-title typewriter-title" data-title="Qualifications">
-					Qualifications
-				</h2>
-				<ul>
-					<li>基本情報技術者試験 合格</li>
-					<li>TOEIC 750点</li>
-					<li>Oracle Certified Java Programmer Bronze</li>
-					<li>AWS Certified Solutions Architect - Associate</li>
-					<li>Certified Scrum Master (CSM)</li>
-				</ul>
-			</section>
-
-			<!-- お問い合わせセクション -->
-			<section id="contact" class="contact">
-				<h2 class="section-title typewriter-title" data-title="Contact">
-					Contact
-				</h2>
-				<div class="contact-container">
-					<form class="contact-form" id="contact-form">
-						<div class="form-group">
-							<label for="name">お名前</label>
-							<input type="text" id="name" name="name" required />
-						</div>
-						<div class="form-group">
-							<label for="email">メールアドレス</label>
-							<input type="email" id="email" name="email" required />
-						</div>
-						<div class="form-group">
-							<label for="message">メッセージ</label>
-							<textarea
-								id="message"
-								name="message"
-								rows="5"
-								required
-							></textarea>
-						</div>
-						<button type="submit" class="submit-button">送信する</button>
-					</form>
-
-					<div class="direct-contact">
-						<h3>お問い合わせ</h3>
-						<p>
-							ご質問やご相談などがございましたら、<br />
-							お気軽にこちらのメールアドレス宛にご連絡ください。
-						</p>
-						<a href="mailto:example@example.com" class="email-link"
-							>example@example.com</a
-						>
-					</div>
-				</div>
-			</section>
-
-			<!-- フッター -->
-			<footer class="footer">
-				<p>&copy; 2025 山田太郎</p>
-			</footer>
 		</div>
+
+		<!-- フッター -->
+		<footer>
+			<div class="footer-content">
+				<div class="footer-social">
+					<a href="#" class="social-link" target="_blank"
+						><i class="fab fa-github"></i
+					></a>
+					<a href="#" class="social-link" target="_blank"
+						><i class="fab fa-linkedin"></i
+					></a>
+					<a href="#" class="social-link" target="_blank"
+						><i class="fab fa-twitter"></i
+					></a>
+				</div>
+				<p>&copy; 2025 Your Name. All rights reserved.</p>
+			</div>
+		</footer>
 
 		<script src="script.js"></script>
 	</body>

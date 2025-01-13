@@ -1,266 +1,369 @@
-/******************************************************
- * script.js
- * ポートフォリオサイト用の JavaScript メインファイル
- *
- * 【主な機能】
- * 1. オープニングアニメーション（タイプライター & ブロック）
- * 2. 各セクションタイトルへのタイプライター演出
- * 3. スクロールに応じたフェードインアニメーション
- * 4. Contactフォームでの簡易バリデーション＆送信演出
- * 5. Worksモーダル（詳細表示）
- *    - モーダル内のみカルーセル（＜ ＞）ボタン
- ******************************************************/
-
-//------------------------------------------------------
-// 1. オープニングアニメーション
-//------------------------------------------------------
 document.addEventListener("DOMContentLoaded", () => {
-	const openingText = document.getElementById("opening-text");
+	// オープニングアニメーション
+	const text = "Welcome to My Portfolio";
+	const typedTextElement = document.getElementById("typed-text");
 	const gridContainer = document.getElementById("grid");
-	const openingContainer = document.getElementById("opening-container");
-	const mainContent = document.getElementById("main-content");
+	const loadingContainer = document.querySelector(".loading-container");
+	let currentIndex = 0;
 
-	// オープニングで表示するテキスト
-	const text = "Welcome to My Portfolio...";
-	let index = 0;
-
-	// グリッドブロックの行・列を設定 (実際の個数はCSS依存しない)
-	const rows = 15;
-	const cols = 20;
-
-	// -----------------------------------
-	// グリッドブロックを生成
-	// -----------------------------------
-	for (let r = 0; r < rows; r++) {
-		for (let c = 0; c < cols; c++) {
-			const block = document.createElement("div");
-			block.className = "grid-item";
-			gridContainer.appendChild(block);
+	// グリッドアイテムを作成
+	for (let row = 0; row < 15; row++) {
+		for (let col = 0; col < 20; col++) {
+			const gridItem = document.createElement("div");
+			gridItem.className = "grid-item";
+			gridItem.dataset.row = row;
+			gridItem.dataset.col = col;
+			gridContainer.appendChild(gridItem);
 		}
 	}
 
-	// -----------------------------------
-	// タイプライター演出
-	// -----------------------------------
-	function typeWriter() {
-		if (index < text.length) {
-			openingText.textContent += text[index];
-			index++;
-			setTimeout(typeWriter, 100); // 適度な速度で1文字ずつ表示
+	// タイプライターエフェクト
+	function typeText() {
+		if (currentIndex < text.length) {
+			typedTextElement.textContent += text[currentIndex];
+			currentIndex++;
+			setTimeout(typeText, 100);
 		} else {
-			// 文字をすべて表示し終えた後ブロックアニメーションへ
-			setTimeout(startBlockAnimation, 800);
+			setTimeout(startGridAnimation, 1000);
 		}
 	}
 
-	// -----------------------------------
-	// ブロックアニメーション
-	// -----------------------------------
-	function startBlockAnimation() {
-		const blocks = document.querySelectorAll(".grid-item");
-		blocks.forEach((block, i) => {
+	// グリッドアニメーション
+	function startGridAnimation() {
+		const items = document.querySelectorAll(".grid-item");
+		items.forEach((item) => {
+			const row = parseInt(item.dataset.row);
+			const col = parseInt(item.dataset.col);
+			const delay = (15 - row + col) * 50;
+
 			setTimeout(() => {
-				block.classList.add("animate");
-			}, i * 40); // 少しディレイを入れて順番に上へ流す
+				item.classList.add("animate");
+			}, delay);
 		});
 
-		// ブロックが流れ終わる頃、メインページを表示
+		// メインコンテンツを表示
 		setTimeout(() => {
-			openingContainer.style.display = "none";
-			mainContent.style.opacity = 1;
-		}, 2500);
+			loadingContainer.style.opacity = "0";
+			setTimeout(() => {
+				loadingContainer.style.display = "none";
+				document.body.style.overflow = "auto"; // スクロールを有効化
+			}, 500);
+		}, 2000);
 	}
 
-	// タイプライター開始
-	typeWriter();
-});
+	// アニメーション開始
+	document.body.style.overflow = "hidden"; // 初期状態でスクロールを無効化
+	setTimeout(typeText, 500);
 
-//------------------------------------------------------
-// 2. 各セクションタイトルへのタイプライター演出
-//------------------------------------------------------
-function applyTypewriterToHeadings() {
-	const headings = document.querySelectorAll(".typewriter-title");
-	headings.forEach((heading) => {
-		const originalText = heading.getAttribute("data-title");
-		heading.textContent = "";
-		let charIndex = 0;
+	// 以下、既存のコード（スキルのプログレスバー、セクションのフェードイン、
+	// プロジェクトモーダル、その他の機能）をそのまま続けてください
+	// プロジェクトデータ
+	const projectsData = {
+		project1: {
+			title: "Portfolio Website",
+			duration: "2024.01 - 2024.02",
+			role: "Frontend Developer",
+			team: "Personal Project",
+			description: `
+                <h3>Overview</h3>
+                <p>レスポンシブ対応のポートフォリオサイトを開発。モダンな技術とアニメーションを活用し、
+                   直感的なUI/UXを実現しています。</p>
+                
+                <h3>Features</h3>
+                <ul>
+                    <li>レスポンシブデザイン</li>
+                    <li>スムーズスクロール</li>
+                    <li>モーダルウィンドウ</li>
+                    <li>画像カルーセル</li>
+                </ul>
+                
+                <h3>Technical Details</h3>
+                <ul>
+                    <li>React + TypeScriptによるコンポーネント開発</li>
+                    <li>Tailwind CSSを用いたスタイリング</li>
+                    <li>アニメーションによるインタラクション</li>
+                </ul>
+                
+                <h3>Key Points</h3>
+                <p>パフォーマンスを考慮し、画像の最適化やコード分割を実装。
+                   またアクセシビリティにも配慮し、セマンティックなマークアップを心がけました。</p>
+            `,
+			techStack: ["React", "TypeScript", "Tailwind CSS"],
+			images: [
+				"project1-image1.jpg",
+				"project1-image2.jpg",
+				"project1-image3.jpg",
+			],
+			demoUrl: "https://example.com/demo1",
+			githubUrl: "https://github.com/yourusername/project1",
+		},
+		project2: {
+			title: "Task Management App",
+			duration: "2023.11 - 2023.12",
+			role: "Full Stack Developer",
+			team: "2 Members",
+			description: `
+                <h3>Overview</h3>
+                <p>シンプルで使いやすいタスク管理アプリケーションを開発。
+                   リアルタイムでの更新とドラッグ&ドロップによる直感的な操作を実現しています。</p>
+                
+                <h3>Features</h3>
+                <ul>
+                    <li>タスクの作成・編集・削除</li>
+                    <li>ドラッグ&ドロップによる優先順位の変更</li>
+                    <li>カテゴリー別の管理機能</li>
+                    <li>進捗状況の視覚化</li>
+                </ul>
+                
+                <h3>Backend Architecture</h3>
+                <ul>
+                    <li>Node.js + Expressによるサーバー構築</li>
+                    <li>MongoDBを用いたデータ管理</li>
+                    <li>JWT認証の実装</li>
+                </ul>
+                
+                <h3>Results</h3>
+                <p>ユーザビリティテストを実施し、フィードバックを基に改善を重ねました。
+                   結果として、直感的で使いやすいインターフェースを実現できました。</p>
+            `,
+			techStack: ["Vue.js", "Node.js", "MongoDB"],
+			images: [
+				"project2-image1.jpg",
+				"project2-image2.jpg",
+				"project2-image3.jpg",
+			],
+			demoUrl: "https://example.com/demo2",
+			githubUrl: "https://github.com/yourusername/project2",
+		},
+	};
 
-		function typeChar() {
-			if (charIndex < originalText.length) {
-				heading.textContent += originalText[charIndex];
-				charIndex++;
-				setTimeout(typeChar, 80);
+	// スキルのプログレスバーアニメーション
+	const observerOptions = {
+		root: null,
+		threshold: 0.1,
+		rootMargin: "0px",
+	};
+
+	const skillsObserver = new IntersectionObserver((entries) => {
+		entries.forEach((entry) => {
+			if (entry.isIntersecting) {
+				const progress = entry.target;
+				const percentage = progress.style.width;
+				progress.style.width = "0";
+				setTimeout(() => {
+					progress.style.width = percentage;
+				}, 100);
+				skillsObserver.unobserve(progress);
 			}
-		}
-		typeChar();
+		});
+	}, observerOptions);
+
+	document.querySelectorAll(".skill-progress").forEach((progress) => {
+		skillsObserver.observe(progress);
 	});
-}
 
-window.addEventListener("DOMContentLoaded", applyTypewriterToHeadings);
+	// セクションのフェードインアニメーション
+	const sectionObserver = new IntersectionObserver((entries) => {
+		entries.forEach((entry) => {
+			if (entry.isIntersecting) {
+				entry.target.classList.add("fade-in");
+				sectionObserver.unobserve(entry.target);
+			}
+		});
+	}, observerOptions);
 
-//------------------------------------------------------
-// 3. スクロールに応じたフェードインアニメーション
-//------------------------------------------------------
-function fadeInOnScroll() {
-	const fadeTargets = document.querySelectorAll(
-		".section-title," +
-			".about-container," +
-			".career-container," +
-			".skill-list," +
-			".works-list," + // 作品一覧もフェードイン
-			".qualifications ul," +
-			".contact-form"
-	);
-
-	const windowHeight = window.innerHeight;
-	const offset = 100; // 表示トリガー
-
-	fadeTargets.forEach((target) => {
-		const rect = target.getBoundingClientRect();
-		if (rect.top < windowHeight - offset) {
-			target.classList.add("visible");
-		}
+	document.querySelectorAll(".section").forEach((section) => {
+		section.classList.add("fade-out");
+		sectionObserver.observe(section);
 	});
-}
 
-window.addEventListener("DOMContentLoaded", fadeInOnScroll);
-window.addEventListener("scroll", fadeInOnScroll);
+	// プロジェクトモーダル関連
+	const modal = document.getElementById("project-modal");
+	const modalContent = modal.querySelector(".modal-content");
+	let currentSlide = 0;
 
-//------------------------------------------------------
-// 4. Contactフォーム（簡易バリデーション＆送信処理）
-//------------------------------------------------------
-const contactForm = document.getElementById("contact-form");
-if (contactForm) {
-	contactForm.addEventListener("submit", (e) => {
-		e.preventDefault();
-		const nameValue = document.getElementById("name").value.trim();
-		const emailValue = document.getElementById("email").value.trim();
-		const messageValue = document.getElementById("message").value.trim();
-
-		// 簡易バリデーション
-		if (!nameValue || !emailValue || !messageValue) {
-			alert("全てのフィールドを入力してください。");
-			return;
-		}
-		// 実際の送信処理はサーバー側が必要
-		alert(
-			`ありがとうございます、${nameValue}さん！メッセージを受け取りました。`
-		);
-		contactForm.reset();
+	// プロジェクト詳細ボタンのイベントリスナー
+	document.querySelectorAll(".project-details-btn").forEach((button) => {
+		button.addEventListener("click", (e) => {
+			const projectId = e.target.closest(".project-card").dataset.project;
+			openProjectModal(projectId);
+		});
 	});
-}
 
-//------------------------------------------------------
-// 5. Worksモーダル（詳細表示）
-//    モーダル内のみカルーセルが存在
-//------------------------------------------------------
-const modal = document.getElementById("work-modal");
-const closeButton = modal?.querySelector(".close-button");
-const workLinks = document.querySelectorAll(".work-link");
+	function openProjectModal(projectId) {
+		const project = projectsData[projectId];
 
-// リンク（作品詳細ボタン）クリック時
-workLinks.forEach((link) => {
-	link.addEventListener("click", () => {
-		const workIndex = parseInt(link.dataset.work, 10);
-		openModal(workIndex);
-	});
-});
+		document.getElementById("modal-title").textContent = project.title;
+		document.getElementById("modal-description").innerHTML =
+			project.description;
+		document.getElementById("modal-duration").textContent = project.duration;
+		document.getElementById("modal-role").textContent = project.role;
+		document.getElementById("modal-team").textContent = project.team;
 
-// モーダルを開く
-function openModal(index) {
-	if (!modal) return;
-	modal.style.display = "block";
-	showModalSlide(index);
-	stopModalAutoSlide();
-	startModalAutoSlide();
-}
+		document.getElementById("modal-tech-stack").innerHTML = `
+            ${project.techStack
+							.map(
+								(tech) => `
+                <span class="tech-tag">${tech}</span>
+            `
+							)
+							.join("")}
+        `;
 
-// モーダルを閉じる
-function closeModal() {
-	if (!modal) return;
-	modal.style.display = "none";
-	stopModalAutoSlide();
-}
+		// カルーセルの設定
+		const carouselContainer = document.querySelector(".carousel-container");
+		carouselContainer.innerHTML = project.images
+			.map(
+				(img, index) => `
+            <div class="carousel-slide">
+                <img src="${img}" alt="Project screenshot ${index + 1}">
+            </div>
+        `
+			)
+			.join("");
 
-if (closeButton) {
-	closeButton.addEventListener("click", closeModal);
-}
+		// カルーセルインジケーターの設定
+		const indicatorsContainer = document.querySelector(".carousel-indicators");
+		indicatorsContainer.innerHTML = project.images
+			.map(
+				(_, index) => `
+            <div class="carousel-indicator${index === 0 ? " active" : ""}" 
+                 data-index="${index}"></div>
+        `
+			)
+			.join("");
 
-// モーダル外クリックで閉じる
-window.addEventListener("click", (e) => {
-	if (e.target === modal) {
-		closeModal();
+		document.getElementById("demo-link").href = project.demoUrl;
+		document.getElementById("github-link").href = project.githubUrl;
+
+		currentSlide = 0;
+		updateCarousel();
+
+		modal.style.display = "block";
+		setTimeout(() => {
+			modal.classList.add("show");
+			modalContent.style.transform = "translateY(0)";
+			modalContent.style.opacity = "1";
+		}, 10);
+
+		document.body.style.overflow = "hidden";
 	}
-});
 
-// モーダル内カルーセル
-const modalCarouselItems = modal?.querySelectorAll(".modal-carousel-item");
-const modalPrevBtn = modal?.querySelector(".modal-carousel-button.prev");
-const modalNextBtn = modal?.querySelector(".modal-carousel-button.next");
-const modalIndicators = modal?.querySelectorAll(".modal-indicator");
+	function updateCarousel() {
+		const slides = document.querySelectorAll(".carousel-slide");
+		const indicators = document.querySelectorAll(".carousel-indicator");
 
-let modalCurrentIndex = 0;
-let modalAutoSlideTimer;
-const modalTotal = modalCarouselItems ? modalCarouselItems.length : 0;
+		slides.forEach((slide, index) => {
+			slide.style.transform = `translateX(${100 * (index - currentSlide)}%)`;
+		});
 
-// 指定のスライドを表示する
-function showModalSlide(i) {
-	if (!modalCarouselItems || !modalIndicators) return;
-	modalCarouselItems.forEach((item, idx) => {
-		item.classList.toggle("active", idx === i);
-	});
-	modalIndicators.forEach((indicator, idx) => {
-		indicator.classList.toggle("active", idx === i);
-	});
-	modalCurrentIndex = i;
-}
-
-// 次へ
-function showModalNext() {
-	let newIndex = modalCurrentIndex + 1;
-	if (newIndex >= modalTotal) newIndex = 0;
-	showModalSlide(newIndex);
-}
-
-// 前へ
-function showModalPrev() {
-	let newIndex = modalCurrentIndex - 1;
-	if (newIndex < 0) newIndex = modalTotal - 1;
-	showModalSlide(newIndex);
-}
-
-// 自動切り替え（5秒）
-function startModalAutoSlide() {
-	if (modalTotal > 1) {
-		modalAutoSlideTimer = setInterval(showModalNext, 5000);
+		indicators.forEach((indicator, index) => {
+			indicator.classList.toggle("active", index === currentSlide);
+		});
 	}
-}
 
-function stopModalAutoSlide() {
-	clearInterval(modalAutoSlideTimer);
-}
+	// カルーセルのナビゲーション
+	document.querySelector(".carousel-btn.prev").addEventListener("click", () => {
+		const slides = document.querySelectorAll(".carousel-slide");
+		currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+		updateCarousel();
+	});
 
-// モーダル内ボタン
-if (modalPrevBtn) {
-	modalPrevBtn.addEventListener("click", () => {
-		showModalPrev();
-		stopModalAutoSlide();
-		startModalAutoSlide();
+	document.querySelector(".carousel-btn.next").addEventListener("click", () => {
+		const slides = document.querySelectorAll(".carousel-slide");
+		currentSlide = (currentSlide + 1) % slides.length;
+		updateCarousel();
 	});
-}
-if (modalNextBtn) {
-	modalNextBtn.addEventListener("click", () => {
-		showModalNext();
-		stopModalAutoSlide();
-		startModalAutoSlide();
-	});
-}
 
-// モーダル内インジケーター
-modalIndicators?.forEach((indicator, idx) => {
-	indicator.addEventListener("click", () => {
-		showModalSlide(idx);
-		stopModalAutoSlide();
-		startModalAutoSlide();
+	// インジケーターのクリックイベント
+	document.addEventListener("click", (e) => {
+		if (e.target.classList.contains("carousel-indicator")) {
+			currentSlide = parseInt(e.target.dataset.index);
+			updateCarousel();
+		}
 	});
+
+	// モーダルを閉じる
+	function closeModal() {
+		modal.classList.remove("show");
+		modalContent.style.transform = "translateY(-50px)";
+		modalContent.style.opacity = "0";
+
+		setTimeout(() => {
+			modal.style.display = "none";
+			document.body.style.overflow = "auto";
+		}, 300);
+	}
+
+	document.querySelector(".close-modal").addEventListener("click", closeModal);
+
+	// モーダル外クリックで閉じる
+	modal.addEventListener("click", (e) => {
+		if (e.target === modal) {
+			closeModal();
+		}
+	});
+
+	// ESCキーでモーダルを閉じる
+	document.addEventListener("keydown", (e) => {
+		if (e.key === "Escape" && modal.classList.contains("show")) {
+			closeModal();
+		}
+	});
+
+	// ハンバーガーメニュー
+	const hamburger = document.querySelector(".hamburger");
+	const navLinks = document.querySelector(".nav-links");
+
+	hamburger?.addEventListener("click", () => {
+		hamburger.classList.toggle("active");
+		navLinks.classList.toggle("active");
+	});
+
+	// スムーズスクロール
+	document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+		anchor.addEventListener("click", function (e) {
+			e.preventDefault();
+			const target = document.querySelector(this.getAttribute("href"));
+			const headerOffset = 80;
+			const elementPosition = target.getBoundingClientRect().top;
+			const offsetPosition =
+				elementPosition + window.pageYOffset - headerOffset;
+
+			window.scrollTo({
+				top: offsetPosition,
+				behavior: "smooth",
+			});
+
+			// モバイルメニューが開いている場合は閉じる
+			if (hamburger?.classList.contains("active")) {
+				hamburger.classList.remove("active");
+				navLinks.classList.remove("active");
+			}
+		});
+	});
+
+	// コンタクトフォーム
+	const contactForm = document.getElementById("contact-form");
+	if (contactForm) {
+		contactForm.addEventListener("submit", async function (e) {
+			e.preventDefault();
+
+			// フォームデータの取得
+			const formData = new FormData(this);
+			const data = Object.fromEntries(formData.entries());
+
+			try {
+				// ここに実際の送信処理を実装
+				console.log("送信されたデータ:", data);
+
+				// 成功メッセージ
+				alert("メッセージが送信されました！");
+				this.reset();
+			} catch (error) {
+				alert("送信に失敗しました。もう一度お試しください。");
+				console.error("Error:", error);
+			}
+		});
+	}
 });
