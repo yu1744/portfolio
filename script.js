@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
 	// オープニングアニメーション
-	const text = "Welcome to My Portfolio";
+	const text = "Welcome to My Portfolio...";
 	const typedTextElement = document.getElementById("typed-text");
 	const gridContainer = document.getElementById("grid");
 	const loadingContainer = document.querySelector(".loading-container");

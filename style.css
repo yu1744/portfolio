@@ -1,1015 +1,1127 @@
 :root {
-    /* VSCode inspired colors */
-    --bg-primary: #ffffff;
-    --bg-secondary: #f8f9fa;
-    --text-primary: #1e1e1e;
-    --text-secondary: #6c757d;
-    --accent-color: #007acc;    /* VSCode blue */
-    --accent-hover: #005c99;    /* Darker blue */
-    --accent-green: #388a34;    /* VSCode green */
-    --accent-warn: #ff8f00;     /* VSCode warning */
-    --border-color: #e0e0e0;
-    
-    /* Shadows */
-    --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
-    --shadow-md: 0 4px 8px rgba(0,0,0,0.1);
-    --shadow-lg: 0 8px 16px rgba(0,0,0,0.1);
-    
-    /* Transitions */
-    --transition-normal: all 0.3s ease;
+	/* VSCode inspired colors */
+	--bg-primary: #ffffff;
+	--bg-secondary: #f8f9fa;
+	--text-primary: #1e1e1e;
+	--text-secondary: #6c757d;
+	--accent-color: #007acc; /* VSCode blue */
+	--accent-hover: #005c99; /* Darker blue */
+	--accent-green: #388a34; /* VSCode green */
+	--accent-warn: #ff8f00; /* VSCode warning */
+	--border-color: #e0e0e0;
+
+	/* Shadows */
+	--shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+	--shadow-md: 0 4px 8px rgba(0, 0, 0, 0.1);
+	--shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.1);
+
+	/* Transitions */
+	--transition-normal: all 0.3s ease;
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
 html {
-    scroll-behavior: smooth;
-    font-size: 16px;
+	scroll-behavior: smooth;
+	font-size: 16px;
 }
 
 body {
-    font-family: 'JetBrains Mono', 'Consolas', monospace;
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-    line-height: 1.6;
+	font-family: "JetBrains Mono", "Consolas", monospace;
+	background-color: var(--bg-primary);
+	color: var(--text-primary);
+	line-height: 1.6;
 }
 
 /* ナビゲーション */
 .navbar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background-color: rgba(255, 255, 255, 0.95);
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 1000;
-    backdrop-filter: blur(10px);
-    box-shadow: var(--shadow-sm);
+	position: fixed;
+	top: 0;
+	width: 100%;
+	background-color: rgba(255, 255, 255, 0.95);
+	padding: 1rem 2rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	z-index: 1000;
+	backdrop-filter: blur(10px);
+	box-shadow: var(--shadow-sm);
 }
 
 .logo {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--accent-color);
-    text-decoration: none;
-    letter-spacing: -1px;
+	font-family: "JetBrains Mono", monospace;
+	font-size: 1.5rem;
+	font-weight: bold;
+	color: var(--accent-color);
+	text-decoration: none;
+	letter-spacing: -1px;
 }
 
 .nav-links {
-    display: flex;
-    list-style: none;
-    gap: 2rem;
+	display: flex;
+	list-style: none;
+	gap: 2rem;
 }
 
 .nav-links a {
-    font-family: 'JetBrains Mono', monospace;
-    color: var(--text-primary);
-    text-decoration: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    transition: var(--transition-normal);
-    font-size: 0.9rem;
+	font-family: "JetBrains Mono", monospace;
+	color: var(--text-primary);
+	text-decoration: none;
+	padding: 0.5rem 1rem;
+	border-radius: 4px;
+	transition: var(--transition-normal);
+	font-size: 0.9rem;
 }
 
 .nav-links a:hover {
-    color: var(--accent-color);
-    background-color: rgba(0, 122, 204, 0.1);
+	color: var(--accent-color);
+	background-color: rgba(0, 122, 204, 0.1);
+}
+
+/* ハンバーガーメニュー */
+.hamburger {
+	display: none;
+	cursor: pointer;
+	width: 30px;
+	height: 20px;
+	position: relative;
+	z-index: 100;
+}
+
+.hamburger span {
+	display: block;
+	width: 100%;
+	height: 2px;
+	background-color: var(--text-primary);
+	position: absolute;
+	transition: all 0.3s ease;
+}
+
+.hamburger span:first-child {
+	top: 0;
+}
+
+.hamburger span:nth-child(2) {
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+.hamburger span:last-child {
+	bottom: 0;
+}
+
+.hamburger.active span:first-child {
+	transform: translateY(9px) rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+	opacity: 0;
+}
+
+.hamburger.active span:last-child {
+	transform: translateY(-9px) rotate(-45deg);
 }
 
 /* ローディングアニメーション */
 .loading-container {
-    position: fixed;
-    width: 100%;
-    height: 100vh;
-    background-color: var(--bg-primary);
-    z-index: 2000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: opacity 0.5s;
+	position: fixed;
+	width: 100%;
+	height: 100vh;
+	background-color: var(--bg-primary);
+	z-index: 2000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: opacity 0.5s;
 }
 
 .loading-content {
-    position: relative;
-    width: 100%;
-    height: 100%;
+	position: relative;
+	width: 100%;
+	height: 100%;
 }
 
 .text-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 10;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 2rem;
-    color: var(--text-primary);
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 10;
+	font-family: "JetBrains Mono", monospace;
+	font-size: 2rem;
+	color: var(--text-primary);
 }
 
 .cursor {
-    display: inline-block;
-    width: 2px;
-    height: 1.2em;
-    background-color: var(--text-primary);
-    margin-left: 2px;
-    animation: blink 1s infinite;
+	display: inline-block;
+	width: 2px;
+	height: 1.2em;
+	background-color: var(--bg-primary);
+	margin-left: 2px;
+	animation: blink 1s infinite;
 }
 
 @keyframes blink {
-    50% { opacity: 0; }
+	50% {
+		opacity: 0;
+	}
 }
 
 .grid {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: grid;
-    grid-template-columns: repeat(20, 1fr);
-    grid-template-rows: repeat(15, 1fr);
-    z-index: 5;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: grid;
+	grid-template-columns: repeat(20, 1fr);
+	grid-template-rows: repeat(15, 1fr);
+	z-index: 5;
 }
 
 .grid-item {
-    background-color: var(--accent-color);
-    transition: transform 0.5s, opacity 0.5s;
+	background-color: var(--text-primary);
+	transition: transform 0.5s, opacity 0.5s;
 }
 
 .grid-item.animate {
-    transform: translateY(-100%);
-    opacity: 0;
+	transform: translateY(-100%);
+	opacity: 0;
+}
+
+.typed-text {
+	color: var(--bg-primary);
 }
 
 /* スクロールインジケーターの位置調整 */
 .scroll-indicator {
-    position: absolute;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1;
+	position: absolute;
+	bottom: 2rem;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 1;
 }
 
 /* ヒーローセクション */
 .hero-section {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 6rem 2rem 2rem;
-    background-color: var(--bg-secondary);
-    position: relative;
+	position: relative;
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 6rem 2rem 6rem; /* 下部のパディングを増やして余白を確保 */
 }
 
 .hero-content {
-    max-width: 1200px;
-    width: 100%;
-    text-align: center;
-	position: relative;
-    padding-bottom: 4rem; /* スクロールインジケーターのための余白 */
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	max-width: 1200px;
+	width: 100%;
 }
 
 .hero-text h1 {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    line-height: 1.2;
+	font-size: 3rem;
+	margin-bottom: 1rem;
+	line-height: 1.2;
 }
 
 .hero-text .highlight {
-    color: var(--accent-color);
-    position: relative;
+	color: var(--accent-color);
+	position: relative;
 }
 
 .subtitle {
-    font-size: 1.5rem;
-    color: var(--text-secondary);
-    margin-bottom: 1.5rem;
-    font-family: 'JetBrains Mono', monospace;
+	font-size: 1.5rem;
+	color: var(--text-secondary);
+	margin-bottom: 1.5rem;
+	font-family: "JetBrains Mono", monospace;
 }
 
 .hero-description {
-    max-width: 800px;
-    margin: 0 auto 2rem;
-    color: var(--text-secondary);
-    font-size: 1.1rem;
-    line-height: 1.8;
+	max-width: 800px;
+	margin: 0 auto 2rem;
+	color: var(--text-secondary);
+	font-size: 1.1rem;
+	line-height: 1.8;
 }
 
 .hero-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-	margin-bottom: 2rem; /* ボタンとスクロールインジケーターの間隔 */
+	margin-bottom: 4rem; /* スクロールインジケーターとの間隔を確保 */
 }
 
 /* スクロールインジケーター */
 .scroll-indicator {
-    position: absolute;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    opacity: 0.7;
-    transition: var(--transition-normal);
+	position: absolute;
+	bottom: 3rem; /* 位置を下に調整 */
+	left: 50%;
+	transform: translateX(-50%);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.5rem;
 }
 
 .scroll-indicator:hover {
-    opacity: 1;
+	opacity: 1;
 }
 
 .mouse {
-    width: 26px;
-    height: 40px;
-    border: 2px solid var(--text-secondary);
-    border-radius: 13px;
-    position: relative;
+	width: 26px;
+	height: 40px;
+	border: 2px solid var(--text-secondary);
+	border-radius: 13px;
+	position: relative;
 }
 
 .mouse::before {
-    content: '';
-    position: absolute;
-    top: 6px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 4px;
-    height: 8px;
-    background: var(--text-secondary);
-    border-radius: 2px;
-    animation: scroll 1.5s infinite;
+	content: "";
+	position: absolute;
+	top: 6px;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 4px;
+	height: 8px;
+	background: var(--text-secondary);
+	border-radius: 2px;
+	animation: scroll 1.5s infinite;
 }
 
 .scroll-indicator span {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.8rem;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 2px;
+	font-family: "JetBrains Mono", monospace;
+	font-size: 0.8rem;
+	color: var(--text-secondary);
+	text-transform: uppercase;
+	letter-spacing: 2px;
 }
 
 @keyframes scroll {
-    0% { 
-        transform: translate(-50%, 0);
-        opacity: 1;
-    }
-    100% { 
-        transform: translate(-50%, 15px);
-        opacity: 0;
-    }
+	0% {
+		transform: translate(-50%, 0);
+		opacity: 1;
+	}
+	100% {
+		transform: translate(-50%, 15px);
+		opacity: 0;
+	}
 }
 /* セクション共通 */
 .section {
-    padding: 5rem 2rem;
+	padding: 5rem 2rem;
 }
 
 .section-header {
-    text-align: center;
-    margin-bottom: 3rem;
+	text-align: center;
+	margin-bottom: 3rem;
 }
 
 .section-title {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 2.2rem;
-    color: var(--text-primary);
-    margin-bottom: 1rem;
-    letter-spacing: -1px;
+	font-family: "JetBrains Mono", monospace;
+	font-size: 2.2rem;
+	color: var(--text-primary);
+	margin-bottom: 1rem;
+	letter-spacing: -1px;
 }
 
 .section-line {
-    width: 60px;
-    height: 3px;
-    background: var(--accent-color);
-    margin: 0 auto;
-    border-radius: 2px;
+	width: 60px;
+	height: 3px;
+	background: var(--accent-color);
+	margin: 0 auto;
+	border-radius: 2px;
 }
 
 /* About セクション */
 .about-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    gap: 4rem;
-    align-items: center;
+	max-width: 1200px;
+	margin: 0 auto;
+	display: flex;
+	gap: 4rem;
+	align-items: center;
 }
 
 .about-image {
-    flex: 1;
-    position: relative;
+	flex: 1;
+	position: relative;
 }
 
 .about-image img {
-    width: 100%;
-    max-width: 400px;
-    border-radius: 12px;
-    box-shadow: var(--shadow-md);
+	width: 100%;
+	max-width: 400px;
+	border-radius: 12px;
+	box-shadow: var(--shadow-md);
 }
 
 .about-social {
-    position: absolute;
-    bottom: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 1rem;
-    background: var(--bg-primary);
-    padding: 0.8rem;
-    border-radius: 25px;
-    box-shadow: var(--shadow-sm);
+	position: absolute;
+	bottom: -20px;
+	left: 50%;
+	transform: translateX(-50%);
+	display: flex;
+	gap: 1rem;
+	background: var(--bg-primary);
+	padding: 0.8rem;
+	border-radius: 25px;
+	box-shadow: var(--shadow-sm);
 }
 
 .social-link {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--bg-secondary);
-    border-radius: 50%;
-    color: var(--text-primary);
-    transition: var(--transition-normal);
+	width: 40px;
+	height: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: var(--bg-secondary);
+	border-radius: 50%;
+	color: var(--text-primary);
+	transition: var(--transition-normal);
 }
 
 .social-link:hover {
-    background: var(--accent-color);
-    color: white;
-    transform: translateY(-3px);
+	background: var(--accent-color);
+	color: white;
+	transform: translateY(-3px);
 }
 
 .about-text {
-    flex: 1;
+	flex: 1;
 }
 
 .about-description {
-    margin-bottom: 2rem;
-    color: var(--text-secondary);
-    font-size: 1.1rem;
-    line-height: 1.8;
+	margin-bottom: 2rem;
+	color: var(--text-secondary);
+	font-size: 1.1rem;
+	line-height: 1.8;
 }
 
 .about-highlights {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	gap: 2rem;
 }
 
 .highlight-item {
-    padding: 1.5rem;
-    background: var(--bg-secondary);
-    border-radius: 8px;
-    text-align: center;
-    transition: var(--transition-normal);
+	padding: 1.5rem;
+	background: var(--bg-secondary);
+	border-radius: 8px;
+	text-align: center;
+	transition: var(--transition-normal);
 }
 
 .highlight-item:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-md);
+	transform: translateY(-5px);
+	box-shadow: var(--shadow-md);
 }
 
 .highlight-item i {
-    font-size: 2rem;
-    color: var(--accent-color);
-    margin-bottom: 1rem;
+	font-size: 2rem;
+	color: var(--accent-color);
+	margin-bottom: 1rem;
 }
 
 .highlight-item h3 {
-    font-family: 'JetBrains Mono', monospace;
-    margin-bottom: 0.5rem;
-    font-size: 1.1rem;
-    color: var(--text-primary);
+	font-family: "JetBrains Mono", monospace;
+	margin-bottom: 0.5rem;
+	font-size: 1.1rem;
+	color: var(--text-primary);
 }
 
 /* Education & Certifications セクション */
 .timeline-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 0 1rem;
+	max-width: 800px;
+	margin: 0 auto;
+	padding: 0 1rem;
 }
 
 .timeline {
-    position: relative;
-    padding-left: 2rem;
+	position: relative;
+	padding-left: 2rem;
 }
 
 .timeline::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 2px;
-    background: var(--accent-color);
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 2px;
+	background: var(--accent-color);
 }
 
 .timeline-item {
-    margin-bottom: 2rem;
-    position: relative;
-    padding: 1.5rem;
-    background: var(--bg-primary);
-    border-radius: 8px;
-    box-shadow: var(--shadow-md);
-    transition: var(--transition-normal);
+	margin-bottom: 2rem;
+	position: relative;
+	padding: 1.5rem;
+	background: var(--bg-primary);
+	border-radius: 8px;
+	box-shadow: var(--shadow-md);
+	transition: var(--transition-normal);
 }
 
 .timeline-item:hover {
-    transform: translateX(10px);
+	transform: translateX(10px);
 }
 
 .timeline-item::before {
-    content: '';
-    position: absolute;
-    left: -2.5rem;
-    top: 1.8rem;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: var(--accent-color);
-    border: 2px solid var(--bg-primary);
+	content: "";
+	position: absolute;
+	left: -2.5rem;
+	top: 1.8rem;
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+	background: var(--accent-color);
+	border: 2px solid var(--bg-primary);
 }
 
 .timeline-date {
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-    margin-bottom: 0.5rem;
+	color: var(--text-secondary);
+	font-size: 0.9rem;
+	margin-bottom: 0.5rem;
 }
 
 .timeline-content h4 {
-    color: var(--text-primary);
-    margin-bottom: 0.5rem;
-    font-size: 1.1rem;
+	color: var(--text-primary);
+	margin-bottom: 0.5rem;
+	font-size: 1.1rem;
 }
 
 .timeline-content p {
-    color: var(--text-secondary);
+	color: var(--text-secondary);
 }
 
 /* Certifications セクション */
 .certifications-container {
-    max-width: 800px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+	max-width: 800px;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
 }
 
 .certification-card {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    padding: 1.5rem;
-    background: var(--bg-primary);
-    border-radius: 8px;
-    box-shadow: var(--shadow-md);
-    transition: var(--transition-normal);
+	display: flex;
+	align-items: center;
+	gap: 1.5rem;
+	padding: 1.5rem;
+	background: var(--bg-primary);
+	border-radius: 8px;
+	box-shadow: var(--shadow-md);
+	transition: var(--transition-normal);
 }
 
 .certification-card:hover {
-    transform: translateX(10px);
+	transform: translateX(10px);
 }
 
 .certification-icon {
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--bg-secondary);
-    border-radius: 8px;
-    font-size: 1.5rem;
-    color: var(--accent-color);
+	width: 50px;
+	height: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: var(--bg-secondary);
+	border-radius: 8px;
+	font-size: 1.5rem;
+	color: var(--accent-color);
 }
 
 .certification-info h4 {
-    margin-bottom: 0.5rem;
-    font-size: 1rem;
-    color: var(--text-primary);
+	margin-bottom: 0.5rem;
+	font-size: 1rem;
+	color: var(--text-primary);
 }
 
 .certification-date {
-    color: var(--text-secondary);
-    font-size: 0.9rem;
+	color: var(--text-secondary);
+	font-size: 0.9rem;
 }
 /* Skills セクション */
 .skills-container {
-    max-width: 1200px;
-    margin: 0 auto;
+	max-width: 1200px;
+	margin: 0 auto;
 }
 
 .skills-category {
-    margin-bottom: 4rem;
+	margin-bottom: 4rem;
 }
 
 .skills-category h3 {
-    font-family: 'JetBrains Mono', monospace;
-    color: var(--text-primary);
-    margin-bottom: 2rem;
-    font-size: 1.5rem;
-    text-align: center;
-    position: relative;
-    padding-bottom: 0.5rem;
+	font-family: "JetBrains Mono", monospace;
+	color: var(--text-primary);
+	margin-bottom: 2rem;
+	font-size: 1.5rem;
+	text-align: center;
+	position: relative;
+	padding-bottom: 0.5rem;
 }
 
 .skills-category h3::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 40px;
-    height: 2px;
-    background: var(--accent-color);
+	content: "";
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 40px;
+	height: 2px;
+	background: var(--accent-color);
 }
 
 .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 2rem;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+	gap: 2rem;
 }
 
 .skill-item {
-    background: var(--bg-primary);
-    padding: 1.5rem;
-    border-radius: 8px;
-    box-shadow: var(--shadow-md);
-    transition: var(--transition-normal);
-    border: 1px solid var(--border-color);
+	background: var(--bg-primary);
+	padding: 1.5rem;
+	border-radius: 8px;
+	box-shadow: var(--shadow-md);
+	transition: var(--transition-normal);
+	border: 1px solid var(--border-color);
 }
 
 .skill-item:hover {
-    transform: translateY(-5px);
-    border-color: var(--accent-color);
+	transform: translateY(-5px);
+	border-color: var(--accent-color);
 }
 
 .skill-header {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1rem;
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	margin-bottom: 1rem;
 }
 
 .skill-icon {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--bg-secondary);
-    border-radius: 8px;
-    font-size: 1.2rem;
-    color: var(--accent-color);
+	width: 40px;
+	height: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: var(--bg-secondary);
+	border-radius: 8px;
+	font-size: 1.2rem;
+	color: var(--accent-color);
 }
 
 .skill-info {
-    flex: 1;
+	flex: 1;
 }
 
 .skill-info h4 {
-    font-family: 'JetBrains Mono', monospace;
-    margin-bottom: 0.5rem;
-    font-size: 1rem;
-    color: var(--text-primary);
+	font-family: "JetBrains Mono", monospace;
+	margin-bottom: 0.5rem;
+	font-size: 1rem;
+	color: var(--text-primary);
 }
 
 .skill-level {
-    height: 6px;
-    background: var(--bg-secondary);
-    border-radius: 3px;
-    overflow: hidden;
+	height: 6px;
+	background: var(--bg-secondary);
+	border-radius: 3px;
+	overflow: hidden;
 }
 
 .skill-progress {
-    height: 100%;
-    background: var(--accent-color);
-    border-radius: 3px;
-    transition: width 1s ease-in-out;
-    width: 0;
+	height: 100%;
+	background: var(--accent-color);
+	border-radius: 3px;
+	transition: width 1s ease-in-out;
+	width: 0;
 }
 
 .skill-description {
-    margin-top: 1rem;
-    padding-top: 1rem;
-    border-top: 1px solid var(--border-color);
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-    line-height: 1.6;
+	margin-top: 1rem;
+	padding-top: 1rem;
+	border-top: 1px solid var(--border-color);
+	color: var(--text-secondary);
+	font-size: 0.9rem;
+	line-height: 1.6;
 }
 
 /* Projects セクション */
 .projects-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+	gap: 2rem;
+	max-width: 1200px;
+	margin: 0 auto;
 }
 
 .project-card {
-    background: var(--bg-primary);
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: var(--shadow-md);
-    transition: var(--transition-normal);
-    border: 1px solid var(--border-color);
+	background: var(--bg-primary);
+	border-radius: 12px;
+	overflow: hidden;
+	box-shadow: var(--shadow-md);
+	transition: var(--transition-normal);
+	border: 1px solid var(--border-color);
 }
 
 .project-card:hover {
-    transform: translateY(-5px);
-    border-color: var(--accent-color);
+	transform: translateY(-5px);
+	border-color: var(--accent-color);
 }
 
 .project-image {
-    position: relative;
-    aspect-ratio: 16/9;
-    overflow: hidden;
+	position: relative;
+	aspect-ratio: 16/9;
+	overflow: hidden;
 }
 
 .project-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transition: transform 0.5s ease;
 }
 
 .project-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: var(--transition-normal);
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.7);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	opacity: 0;
+	transition: var(--transition-normal);
 }
 
 .project-card:hover .project-overlay {
-    opacity: 1;
+	opacity: 1;
 }
 
 .project-card:hover .project-image img {
-    transform: scale(1.1);
+	transform: scale(1.1);
 }
 
 .project-info {
-    padding: 1.5rem;
+	padding: 1.5rem;
 }
 
 .project-info h3 {
-    font-family: 'JetBrains Mono', monospace;
-    color: var(--text-primary);
-    margin-bottom: 0.5rem;
-    font-size: 1.2rem;
+	font-family: "JetBrains Mono", monospace;
+	color: var(--text-primary);
+	margin-bottom: 0.5rem;
+	font-size: 1.2rem;
 }
 
 .project-description {
-    color: var(--text-secondary);
-    margin-bottom: 1rem;
-    font-size: 0.9rem;
-    line-height: 1.6;
+	color: var(--text-secondary);
+	margin-bottom: 1rem;
+	font-size: 0.9rem;
+	line-height: 1.6;
 }
 
 .project-tech {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+}
+
+/* モーダルのdetailsボタンのスタイル */
+.project-details-btn {
+	background: var(--accent-color);
+	color: white;
+	padding: 0.8rem 1.5rem;
+	border-radius: 6px;
+	font-family: "JetBrains Mono", monospace;
+	font-size: 0.9rem;
+	border: none;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.project-details-btn:hover {
+	background: var(--accent-hover);
+	transform: translateY(-2px);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .tech-tag {
-    font-family: 'JetBrains Mono', monospace;
-    background: var(--bg-secondary);
-    color: var(--accent-color);
-    padding: 0.3rem 0.8rem;
-    border-radius: 15px;
-    font-size: 0.8rem;
+	font-family: "JetBrains Mono", monospace;
+	background: var(--bg-secondary);
+	color: var(--accent-color);
+	padding: 0.3rem 0.8rem;
+	border-radius: 15px;
+	font-size: 0.8rem;
 }
 /* モーダル */
 .modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    z-index: 1100;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.8);
+	z-index: 1100;
+	opacity: 0;
+	transition: opacity 0.3s ease;
 }
 
 .modal.show {
-    opacity: 1;
+	opacity: 1;
 }
 
 .modal-content {
-    position: relative;
-    background-color: var(--bg-primary);
-    margin: 2rem auto;
-    padding: 2rem;
-    width: 90%;
-    max-width: 1000px;
-    border-radius: 12px;
-    max-height: 90vh;
-    overflow-y: auto;
-    transform: translateY(-50px);
-    opacity: 0;
-    transition: all 0.3s ease;
+	position: relative;
+	background-color: var(--bg-primary);
+	margin: 2rem auto;
+	padding: 2rem;
+	width: 90%;
+	max-width: 1000px;
+	border-radius: 12px;
+	max-height: 90vh;
+	overflow-y: auto;
+	transform: translateY(-50px);
+	opacity: 0;
+	transition: all 0.3s ease;
 }
 
 .modal.show .modal-content {
-    transform: translateY(0);
-    opacity: 1;
+	transform: translateY(0);
+	opacity: 1;
 }
 
 .modal-header {
-    margin-bottom: 2rem;
+	margin-bottom: 2rem;
 }
 
 .modal-header h2 {
-    font-family: 'JetBrains Mono', monospace;
-    color: var(--text-primary);
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
+	font-family: "JetBrains Mono", monospace;
+	color: var(--text-primary);
+	font-size: 1.8rem;
+	margin-bottom: 1rem;
 }
 
 .close-modal {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    width: 35px;
-    height: 35px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--bg-secondary);
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 1.5rem;
-    color: var(--text-secondary);
-    transition: var(--transition-normal);
+	position: absolute;
+	top: 1rem;
+	right: 1rem;
+	width: 35px;
+	height: 35px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: var(--bg-secondary);
+	border-radius: 50%;
+	cursor: pointer;
+	font-size: 1.5rem;
+	color: var(--text-secondary);
+	transition: var(--transition-normal);
 }
 
 .close-modal:hover {
-    background: rgba(241, 76, 76, 0.1);
-    color: #f14c4c;
+	background: rgba(241, 76, 76, 0.1);
+	color: #f14c4c;
 }
 
 .carousel {
-    position: relative;
-    margin: 2rem 0;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: var(--shadow-md);
+	position: relative;
+	margin: 2rem 0;
+	border-radius: 8px;
+	overflow: hidden;
+	box-shadow: var(--shadow-md);
 }
 
 .carousel-container {
-    display: flex;
-    aspect-ratio: 16/9;
+	display: flex;
+	aspect-ratio: 16/9;
 }
 
 .carousel-slide {
-    flex: 0 0 100%;
-    transition: transform 0.3s ease;
+	flex: 0 0 100%;
+	transition: transform 0.3s ease;
 }
 
 .carousel-slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
 
 .carousel-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 40px;
-    height: 40px;
-    background: rgba(255, 255, 255, 0.9);
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-    color: var(--text-primary);
-    transition: var(--transition-normal);
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 40px;
+	height: 40px;
+	background: rgba(255, 255, 255, 0.9);
+	border: none;
+	border-radius: 50%;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 1.2rem;
+	color: var(--text-primary);
+	transition: var(--transition-normal);
 }
 
 .carousel-btn:hover {
-    background: white;
-    transform: translateY(-50%) scale(1.1);
+	background: white;
+	transform: translateY(-50%) scale(1.1);
 }
 
-.carousel-btn.prev { left: 1rem; }
-.carousel-btn.next { right: 1rem; }
+.carousel-btn.prev {
+	left: 1rem;
+}
+.carousel-btn.next {
+	right: 1rem;
+}
 
 .carousel-indicators {
-    position: absolute;
-    bottom: 1rem;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 0.5rem;
+	position: absolute;
+	bottom: 1rem;
+	left: 50%;
+	transform: translateX(-50%);
+	display: flex;
+	gap: 0.5rem;
 }
 
 .carousel-indicator {
-    width: 8px;
-    height: 8px;
-    background: rgba(255, 255, 255, 0.5);
-    border-radius: 50%;
-    cursor: pointer;
-    transition: var(--transition-normal);
+	width: 8px;
+	height: 8px;
+	background: rgba(255, 255, 255, 0.5);
+	border-radius: 50%;
+	cursor: pointer;
+	transition: var(--transition-normal);
 }
 
 .carousel-indicator.active {
-    background: white;
-    transform: scale(1.2);
+	background: white;
+	transform: scale(1.2);
 }
 
 /* Contact セクション */
 .contact-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 3rem;
+	max-width: 1200px;
+	margin: 0 auto;
+	display: grid;
+	grid-template-columns: 1fr 2fr;
+	gap: 3rem;
 }
 
 .contact-info {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
 }
 
 .contact-item {
-    background: var(--bg-primary);
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: var(--shadow-md);
-    text-align: center;
-    transition: var(--transition-normal);
-    border: 1px solid var(--border-color);
+	background: var(--bg-primary);
+	padding: 2rem;
+	border-radius: 12px;
+	box-shadow: var(--shadow-md);
+	text-align: center;
+	transition: var(--transition-normal);
+	border: 1px solid var(--border-color);
 }
 
 .contact-item:hover {
-    transform: translateY(-5px);
-    border-color: var(--accent-color);
+	transform: translateY(-5px);
+	border-color: var(--accent-color);
 }
 
 .contact-item i {
-    font-size: 2rem;
-    color: var(--accent-color);
-    margin-bottom: 1rem;
+	font-size: 2rem;
+	color: var(--accent-color);
+	margin-bottom: 1rem;
 }
 
 .contact-item h3 {
-    font-family: 'JetBrains Mono', monospace;
-    margin-bottom: 0.5rem;
-    color: var(--text-primary);
+	font-family: "JetBrains Mono", monospace;
+	margin-bottom: 0.5rem;
+	color: var(--text-primary);
 }
 
 .contact-form {
-    background: var(--bg-primary);
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: var(--shadow-md);
-    border: 1px solid var(--border-color);
+	background: var(--bg-primary);
+	padding: 2rem;
+	border-radius: 12px;
+	box-shadow: var(--shadow-md);
+	border: 1px solid var(--border-color);
+}
+
+/* send messageボタンのスタイル */
+.contact-form button[type="submit"] {
+	background: var(--accent-color);
+	color: white;
+	padding: 1rem 2rem;
+	border-radius: 6px;
+	font-family: "JetBrains Mono", monospace;
+	font-size: 1rem;
+	border: none;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	width: 100%;
+	margin-top: 1rem;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.contact-form button[type="submit"]:hover {
+	background: var(--accent-hover);
+	transform: translateY(-2px);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .form-group {
-    margin-bottom: 1.5rem;
+	margin-bottom: 1.5rem;
 }
 
-input, textarea {
-    width: 100%;
-    padding: 1rem;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    background: var(--bg-secondary);
-    color: var(--text-primary);
-    font-family: inherit;
-    transition: var(--transition-normal);
+input,
+textarea {
+	width: 100%;
+	padding: 1rem;
+	border: 1px solid var(--border-color);
+	border-radius: 8px;
+	background: var(--bg-secondary);
+	color: var(--text-primary);
+	font-family: inherit;
+	transition: var(--transition-normal);
 }
 
-input:focus, textarea:focus {
-    outline: none;
-    border-color: var(--accent-color);
-    box-shadow: 0 0 0 3px rgba(0, 122, 204, 0.1);
+input:focus,
+textarea:focus {
+	outline: none;
+	border-color: var(--accent-color);
+	box-shadow: 0 0 0 3px rgba(0, 122, 204, 0.1);
 }
 
 textarea {
-    min-height: 150px;
-    resize: vertical;
+	min-height: 150px;
+	resize: vertical;
 }
 
 /* フッター */
 footer {
-    background: var(--bg-secondary);
-    padding: 3rem 2rem;
-    margin-top: 4rem;
+	background: var(--bg-secondary);
+	padding: 3rem 2rem;
+	margin-top: 4rem;
 }
 
 .footer-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    text-align: center;
+	max-width: 1200px;
+	margin: 0 auto;
+	text-align: center;
 }
 
 .footer-social {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-    margin-bottom: 2rem;
+	display: flex;
+	justify-content: center;
+	gap: 1.5rem;
+	margin-bottom: 2rem;
 }
 
 .footer-social .social-link {
-    width: 45px;
-    height: 45px;
-    font-size: 1.2rem;
+	width: 45px;
+	height: 45px;
+	font-size: 1.2rem;
 }
 
 /* レスポンシブデザイン */
 @media (max-width: 1024px) {
-    .contact-container {
-        grid-template-columns: 1fr;
-    }
+	.contact-container {
+		grid-template-columns: 1fr;
+	}
 
-    .skills-grid {
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    }
+	.skills-grid {
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	}
 }
 
 @media (max-width: 768px) {
-    html {
-        font-size: 14px;
-    }
+	html {
+		font-size: 14px;
+	}
 
-    .navbar {
-        padding: 1rem;
-    }
+	.navbar {
+		padding: 1rem;
+	}
 
-    .nav-links {
-        display: none;
-    }
+	.nav-links {
+		position: fixed;
+		top: 0;
+		right: -100%;
+		width: 70%;
+		height: 100vh;
+		background-color: rgba(255, 255, 255, 0.95);
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		transition: right 0.3s ease;
+		backdrop-filter: blur(10px);
+		box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+	}
 
-    .hamburger {
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-    }
+	.nav-links.active {
+		right: 0;
+	}
 
-    .hamburger span {
-        width: 25px;
-        height: 2px;
-        background: var(--text-primary);
-        transition: var(--transition-normal);
-    }
+	.nav-links a {
+		display: block;
+		margin: 1.5rem 0;
+		font-size: 1.2rem;
+	}
 
-    .about-content {
-        flex-direction: column;
-        text-align: center;
-    }
+	.hamburger {
+		display: block;
+	}
 
-    .about-image img {
-        max-width: 300px;
-    }
+	.hamburger span {
+		width: 25px;
+		height: 2px;
+		background: var(--text-primary);
+		transition: var(--transition-normal);
+	}
 
-    .projects-container {
-        grid-template-columns: 1fr;
-    }
+	.about-content {
+		flex-direction: column;
+		text-align: center;
+	}
+
+	.about-image img {
+		max-width: 300px;
+	}
+
+	.projects-container {
+		grid-template-columns: 1fr;
+	}
 }
 
 @media (max-width: 480px) {
-    .hero-text h1 {
-        font-size: 2rem;
-    }
+	.hero-text h1 {
+		font-size: 2rem;
+	}
 
-    .hero-buttons {
-        flex-direction: column;
-        gap: 1rem;
-    }
+	.hero-buttons {
+		flex-direction: column;
+		gap: 1rem;
+	}
 
-    .section {
-        padding: 3rem 1rem;
-    }
+	.section {
+		padding: 3rem 1rem;
+	}
 
-    .modal-content {
-        padding: 1.5rem;
-        margin: 1rem;
-    }
+	.modal-content {
+		padding: 1.5rem;
+		margin: 1rem;
+	}
 
-    .carousel-btn {
-        width: 35px;
-        height: 35px;
-        font-size: 1rem;
-    }
+	.carousel-btn {
+		width: 35px;
+		height: 35px;
+		font-size: 1rem;
+	}
 }
