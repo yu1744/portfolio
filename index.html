@@ -18,7 +18,7 @@
 		<!-- ヘッダー -->
 		<header>
 			<nav class="navbar">
-				<div class="logo">yuto's Portfolio.dev</div>
+				<div class="logo">yuto's Portfolio.prod</div>
 				<ul class="nav-links">
 					<li><a href="#about">About me</a></li>
 					<li><a href="#education">Education</a></li>
@@ -55,8 +55,8 @@
 						<h1>Hello, I'm <span class="highlight">Yuto Inayoshi</span></h1>
 						<p class="subtitle">Software Engineer</p>
 						<p class="hero-description">
-							Web開発とシステム設計に情熱を持つエンジニアです。<br />
-							ユーザーにとって価値のあるサービスを作ることを心がけています。
+							システムとテクノロジーを駆使し、ユーザーにとって真に価値のあるサービスを提供することを目指しています。<br />
+							常に新しい技術を学び、クリエイティブな解決策を探求します。
 						</p>
 						<div class="hero-buttons">
 							<a href="#contact" class="btn primary">お問い合わせ</a>
@@ -77,9 +77,12 @@
 				</div>
 				<div class="about-content">
 					<div class="about-image">
-						<img src="your-photo.jpg" alt="Profile Image" />
+						<img src="img/noimg.jpg" alt="Profile Image" />
 						<div class="about-social">
-							<a href="#" class="social-link" target="_blank"
+							<a
+								href="https://github.com/yu1744"
+								class="social-link"
+								target="_blank"
 								><i class="fab fa-github"></i
 							></a>
 							<a href="#" class="social-link" target="_blank"
@@ -108,7 +111,7 @@
 							<div class="highlight-item">
 								<i class="fas fa-cloud"></i>
 								<h3>Cloud Development</h3>
-								<p>AWSを活用したインフラ構築</p>
+								<p>Node.jsを使用したサーバサイド開発</p>
 							</div>
 						</div>
 					</div>
@@ -201,7 +204,7 @@
 								</div>
 								<div class="skill-description">
 									<p>
-										モダンなJavaScript開発に精通。React、Vue.jsなどのフレームワークでの開発経験があります。
+										Node.js,Express.jsフレームワークでの開発経験があります。
 									</p>
 								</div>
 							</div>
@@ -250,10 +253,10 @@
 							<div class="skill-item">
 								<div class="skill-header">
 									<div class="skill-icon">
-										<i class="fab fa-react"></i>
+										<i class="fa-brands fa-bootstrap"></i>
 									</div>
 									<div class="skill-info">
-										<h4>React</h4>
+										<h4>Bootstrap</h4>
 										<div class="skill-level">
 											<div class="skill-progress" style="width: 85%"></div>
 										</div>
@@ -261,7 +264,7 @@
 								</div>
 								<div class="skill-description">
 									<p>
-										Hooks、Redux、Context APIを活用した実務開発経験があります。
+										Bootstrapを使用したwebアプリケーション実務開発経験があります。
 									</p>
 								</div>
 							</div>
@@ -313,7 +316,7 @@
 				<div class="projects-container">
 					<div class="project-card" data-project="project1">
 						<div class="project-image">
-							<img src="project1-thumbnail.jpg" alt="Project 1 Thumbnail" />
+							<img src="img/noimg.jpg" alt="Project 1 Thumbnail" />
 							<div class="project-overlay">
 								<button class="btn primary project-details-btn">Details</button>
 							</div>
@@ -333,7 +336,7 @@
 
 					<div class="project-card" data-project="project2">
 						<div class="project-image">
-							<img src="project2-thumbnail.jpg" alt="Project 2 Thumbnail" />
+							<img src="img/noimg.jpg" alt="Project 2 Thumbnail" />
 							<div class="project-overlay">
 								<button class="btn primary project-details-btn">Details</button>
 							</div>
@@ -367,26 +370,59 @@
 						</div>
 						<div class="contact-item">
 							<i class="fas fa-map-marker-alt"></i>
-							<h3>Location</h3>
-							<p>Tokyo, Japan</p>
+							<h3>TimeZone</h3>
+							<p>Asia/Tokyo</p>
 						</div>
 					</div>
 					<div class="contact-form">
-						<form id="contact-form">
+						<form
+							id="contact-form"
+							action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSecGESamt7EBYJPoOiRsbSgF1kSI_NGN_ZKDlz5mbLoguJA6w/formResponse"
+							method="post"
+						>
 							<div class="form-group">
-								<input type="text" placeholder="お名前" required />
+								<input
+									type="text"
+									name="entry.871968946"
+									placeholder="お名前"
+									required
+								/>
 							</div>
 							<div class="form-group">
-								<input type="email" placeholder="メールアドレス" required />
+								<input
+									type="email"
+									name="entry.436965420"
+									placeholder="メールアドレス"
+									required
+								/>
 							</div>
 							<div class="form-group">
-								<input type="text" placeholder="件名" required />
+								<input
+									type="text"
+									name="entry.534568034"
+									placeholder="件名"
+									required
+								/>
 							</div>
 							<div class="form-group">
-								<textarea placeholder="メッセージ" required></textarea>
+								<textarea
+									name="entry.1098917020"
+									placeholder="メッセージ"
+									required
+								></textarea>
 							</div>
 							<button type="submit" class="btn primary">Send Message</button>
 						</form>
+						<!-- サンクスモーダル -->
+						<div id="thanks-modal" class="modal">
+							<div class="modal-content thanks-content">
+								<h2>送信完了</h2>
+								<p>
+									お問い合わせありがとうございます。<br />内容を確認次第、ご連絡させていただきます。
+								</p>
+								<button class="btn primary close-thanks-modal">閉じる</button>
+							</div>
+						</div>
 					</div>
 				</div>
 			</section>

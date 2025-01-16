@@ -283,31 +283,32 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 	});
 
-	// モーダルを閉じる
-	function closeModal() {
+	// プロジェクトモーダルを閉じる処理（既存の関数名を変更）
+	function closeProjectModal() {
 		modal.classList.remove("show");
 		modalContent.style.transform = "translateY(-50px)";
 		modalContent.style.opacity = "0";
-
 		setTimeout(() => {
 			modal.style.display = "none";
 			document.body.style.overflow = "auto";
 		}, 300);
 	}
 
-	document.querySelector(".close-modal").addEventListener("click", closeModal);
+	document
+		.querySelector(".close-modal")
+		.addEventListener("click", closeProjectModal);
 
 	// モーダル外クリックで閉じる
 	modal.addEventListener("click", (e) => {
 		if (e.target === modal) {
-			closeModal();
+			closeProjectModal();
 		}
 	});
 
 	// ESCキーでモーダルを閉じる
 	document.addEventListener("keydown", (e) => {
 		if (e.key === "Escape" && modal.classList.contains("show")) {
-			closeModal();
+			closeProjectModal();
 		}
 	});
 
@@ -344,26 +345,96 @@ document.addEventListener("DOMContentLoaded", () => {
 	});
 
 	// コンタクトフォーム
-	const contactForm = document.getElementById("contact-form");
-	if (contactForm) {
-		contactForm.addEventListener("submit", async function (e) {
-			e.preventDefault();
+	// const contactForm = document.getElementById("contact-form");
+	// if (contactForm) {
+	// 	contactForm.addEventListener("submit", async function (e) {
+	// 		e.preventDefault();
 
-			// フォームデータの取得
-			const formData = new FormData(this);
-			const data = Object.fromEntries(formData.entries());
+	// 		// フォームデータの取得
+	// 		const formData = new FormData(this);
+	// 		const data = Object.fromEntries(formData.entries());
 
-			try {
-				// ここに実際の送信処理を実装
-				console.log("送信されたデータ:", data);
+	// 		try {
+	// 			// ここに実際の送信処理を実装
+	// 			console.log("送信されたデータ:", data);
 
-				// 成功メッセージ
-				alert("メッセージが送信されました！");
-				this.reset();
-			} catch (error) {
-				alert("送信に失敗しました。もう一度お試しください。");
-				console.error("Error:", error);
-			}
-		});
+	// 			// 成功メッセージ
+	// 			alert("メッセージが送信されました！");
+	// 			this.reset();
+	// 		} catch (error) {
+	// 			alert("送信に失敗しました。もう一度お試しください。");
+	// 			console.error("Error:", error);
+	// 		}
+	// 	});
+	// }
+	const form = document.getElementById("contact-form");
+	const thanksModal = document.getElementById("thanks-modal");
+	const closeButton = document.querySelector(".close-thanks-modal");
+
+	form.addEventListener("submit", async (e) => {
+		e.preventDefault();
+
+		const formData = new FormData(form);
+		const url =
+			"https://docs.google.com/forms/u/0/d/e/1FAIpQLSecGESamt7EBYJPoOiRsbSgF1kSI_NGN_ZKDlz5mbLoguJA6w/formResponse";
+
+		try {
+			await fetch(url, {
+				method: "POST",
+				body: formData,
+				mode: "no-cors",
+			});
+
+			// フォームをリセット
+			form.reset();
+
+			// モーダルを表示
+			thanksModal.style.display = "block";
+			setTimeout(() => {
+				thanksModal.classList.add("show");
+			}, 10);
+		} catch (error) {
+			console.error("Error:", error);
+			alert("送信に失敗しました。もう一度お試しください。");
+		}
+	});
+
+	function closeThanksModal() {
+		thanksModal.classList.remove("show");
+		setTimeout(() => {
+			thanksModal.style.display = "none";
+		}, 300);
 	}
+
+	// サンクスモーダルのイベントリスナー
+	closeButton.addEventListener("click", closeThanksModal);
+
+	thanksModal.addEventListener("click", (e) => {
+		if (e.target === thanksModal) {
+			closeThanksModal();
+		}
+	});
+
+	// プロジェクトモーダルのイベントリスナー（既存のコード）
+	document
+		.querySelector(".close-modal")
+		.addEventListener("click", closeProjectModal);
+
+	modal.addEventListener("click", (e) => {
+		if (e.target === modal) {
+			closeProjectModal();
+		}
+	});
+
+	// ESCキーで両方のモーダルを制御
+	document.addEventListener("keydown", (e) => {
+		if (e.key === "Escape") {
+			if (thanksModal.classList.contains("show")) {
+				closeThanksModal();
+			}
+			if (modal.classList.contains("show")) {
+				closeProjectModal();
+			}
+		}
+	});
 });
