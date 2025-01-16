@@ -512,6 +512,37 @@ body {
 	color: var(--text-secondary);
 }
 
+/* Experience セクション */
+.timeline-role {
+	color: var(--accent-color);
+	font-size: 0.9rem;
+	margin: 0.5rem 0;
+}
+
+.timeline-details {
+	margin-top: 1rem;
+}
+
+.timeline-details ul {
+	list-style-type: none;
+	padding-left: 0;
+}
+
+.timeline-details li {
+	color: var(--text-secondary);
+	font-size: 0.9rem;
+	margin-bottom: 0.5rem;
+	padding-left: 1.2rem;
+	position: relative;
+}
+
+.timeline-details li::before {
+	content: "▹";
+	position: absolute;
+	left: 0;
+	color: var(--accent-color);
+}
+
 /* Certifications セクション */
 .certifications-container {
 	max-width: 800px;
