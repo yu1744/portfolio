@@ -343,30 +343,6 @@ document.addEventListener("DOMContentLoaded", () => {
 			}
 		});
 	});
-
-	// コンタクトフォーム
-	// const contactForm = document.getElementById("contact-form");
-	// if (contactForm) {
-	// 	contactForm.addEventListener("submit", async function (e) {
-	// 		e.preventDefault();
-
-	// 		// フォームデータの取得
-	// 		const formData = new FormData(this);
-	// 		const data = Object.fromEntries(formData.entries());
-
-	// 		try {
-	// 			// ここに実際の送信処理を実装
-	// 			console.log("送信されたデータ:", data);
-
-	// 			// 成功メッセージ
-	// 			alert("メッセージが送信されました！");
-	// 			this.reset();
-	// 		} catch (error) {
-	// 			alert("送信に失敗しました。もう一度お試しください。");
-	// 			console.error("Error:", error);
-	// 		}
-	// 	});
-	// }
 	const form = document.getElementById("contact-form");
 	const thanksModal = document.getElementById("thanks-modal");
 	const closeButton = document.querySelector(".close-thanks-modal");
