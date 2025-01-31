@@ -438,3 +438,79 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 	});
 });
+
+// バックグラウンドアニメーション
+const codeRain = document.getElementById("codeRain");
+const snippets = [
+	"const",
+	"let",
+	"var",
+	"function",
+	"return",
+	"interface",
+	"type",
+	"class",
+	"extends",
+	"import",
+	"{ }",
+	"( )",
+	"=>",
+	"[];",
+	"async",
+	"await",
+];
+
+const MAX_ELEMENTS = 30; // 最大要素数
+let currentElements = 0;
+
+function createRainDrop() {
+	if (currentElements >= MAX_ELEMENTS) {
+		return;
+	}
+
+	const line = document.createElement("div");
+	line.className = "code-line";
+	line.style.left = `${Math.random() * 100}%`;
+	line.style.animationDuration = `${Math.random() * 5 + 8}s`;
+	line.textContent = snippets[Math.floor(Math.random() * snippets.length)];
+
+	line.addEventListener("animationend", () => {
+		line.remove();
+		currentElements--;
+	});
+
+	codeRain.appendChild(line);
+	currentElements++;
+}
+
+// 初期生成（画面サイズに応じて適切な数を生成）
+function initializeRain() {
+	const screenWidth = window.innerWidth;
+	const initialElements = Math.min(Math.floor(screenWidth / 50), MAX_ELEMENTS);
+
+	for (let i = 0; i < initialElements; i++) {
+		setTimeout(() => createRainDrop(), Math.random() * 3000);
+	}
+}
+
+// 定期的に新しい要素を生成（既存の要素数を考慮）
+function startRainLoop() {
+	setInterval(() => {
+		if (currentElements < MAX_ELEMENTS) {
+			createRainDrop();
+		}
+	}, 500);
+}
+
+// 画面リサイズ時の処理
+window.addEventListener("resize", () => {
+	// 既存の要素をクリア
+	codeRain.innerHTML = "";
+	currentElements = 0;
+	// 新しいサイズに合わせて再初期化
+	initializeRain();
+});
+
+// 初期化
+initializeRain();
+startRainLoop();
